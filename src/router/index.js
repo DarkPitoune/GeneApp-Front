@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { HomeView, ProfileView, EditProfileView } from "../views";
+import { HomeView, ProfileView, EditProfileView, NotFoundView } from "../views";
 
 const routes = [
   {
@@ -16,7 +16,12 @@ const routes = [
     path: "/profile/:id/edit",
     name: "profile-edit",
     component: EditProfileView,
-  }
+  },
+  {
+    path: "/404",
+    name: "not-found",
+    component: NotFoundView,
+  },
 ];
 
 const router = createRouter({

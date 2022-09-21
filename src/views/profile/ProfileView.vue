@@ -1,28 +1,37 @@
 <template>
   <FrameComponent>
-    <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
-    <p>Né le {{ profile.birth_date }}</p>
-    <p>Mort le {{ profile.death_date }}</p>
-    <p>{{ profile.biography }}</p>
+    <h1>{{ profileInfo.Nom }}</h1>
+    <p>Né le {{ profileInfo.Naissance }}</p>
+    <p>Mort le {{ profileInfo.Mort }}</p>
+    <p>{{ profileInfo.Biographie }}</p>
   </FrameComponent>
 </template>
 
 <script>
-import axios from 'axios'
-import { FrameComponent } from '@/components'
+import axios from "axios";
+import { FrameComponent } from "@/components";
 
 const fetchProfile = async function () {
-  axios.get(process.env.VUE_APP_API_URL + 'profile/1').then((response) => {
-    this.profile = response.data
-  })
-}
+  const id = this.$route.params.id;
+  axios
+    .get(process.env.VUE_APP_API_URL + "personnes/" + id, {
+      headers: {
+        Authorization: "Bearer " + process.env.VUE_APP_BEARER_TOKEN,
+      },
+    })
+    .then((response) => {
+      this.profileId = response.data.data.Id;
+      this.profileInfo = response.data.data.attributes;
+    });
+};
 
 export default {
-  name: 'ProfileView',
+  name: "ProfileView",
   data() {
     return {
       profile: {},
-    }
+      profileInfo: {},
+    };
   },
   components: {
     FrameComponent,
@@ -31,9 +40,9 @@ export default {
     fetchProfile,
   },
   mounted() {
-    this.fetchProfile()
+    this.fetchProfile();
   },
-}
+};
 </script>
 
 <style scoped>

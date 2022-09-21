@@ -1,3 +1,3 @@
 export { default as HomeView } from "./HomeView.vue";
-export {ProfileView} from "./profile";
-export {EditProfileView} from "./profile";
+export { ProfileView, EditProfileView } from "./profile";
+export { default as NotFoundView } from "./NotFoundView.vue";

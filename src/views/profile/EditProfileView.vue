@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import { FrameComponent } from '@/components'
+import { FrameComponent } from "@/components";
 
 export default {
-  name: 'EditProfileView',
+  name: "EditProfileView",
   components: {
     FrameComponent,
   },
-}
+};
 </script>

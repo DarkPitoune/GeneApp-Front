@@ -4,7 +4,7 @@
 </template>
 
 <style>
-@import '/public/theme.css';
+@import "/public/theme.css";
 body {
   /* Necessary to get rid of that untrackable margin (grrr) */
   margin: 0;
@@ -21,11 +21,11 @@ body {
 </style>
 
 <script>
-import { NavBar } from '@/components'
+import { NavBar } from "@/components";
 
 export default {
   components: {
     NavBar,
   },
-}
+};
 </script>
