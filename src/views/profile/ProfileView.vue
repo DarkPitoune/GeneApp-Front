@@ -1,15 +1,17 @@
 <template>
   <FrameComponent>
     <h1>{{ profileInfo.Nom }}</h1>
+    <hr />
     <p>Né le {{ profileInfo.Naissance }}</p>
     <p>Mort le {{ profileInfo.Mort }}</p>
-    <p>{{ profileInfo.Biographie }}</p>
+    <Markdown :source="profileInfo.Biographie" />
   </FrameComponent>
 </template>
 
 <script>
 import axios from "axios";
 import { FrameComponent } from "@/components";
+import Markdown from "vue3-markdown-it";
 
 const fetchProfile = async function () {
   const id = this.$route.params.id;
@@ -35,6 +37,7 @@ export default {
   },
   components: {
     FrameComponent,
+    Markdown,
   },
   methods: {
     fetchProfile,
