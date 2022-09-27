@@ -2,7 +2,7 @@
   <nav>
     <div id="title">
       <router-link to="/">
-        <img src="/icons/left-arrow.svg" alt="left-arrow" />
+        <img src="/icons/left-arrow.svg" alt="logo" />
       </router-link>
       <h1>Généalogie d'Hébrail</h1>
     </div>

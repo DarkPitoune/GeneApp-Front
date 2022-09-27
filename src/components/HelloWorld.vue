@@ -18,16 +18,13 @@
   </div>
 </template>
 
+
 <script>
-import axios from "axios";
+import api from "/src/api";
 
 const fetchPeople = async function () {
-  axios
-    .get(process.env.VUE_APP_API_URL + "personnes/", {
-      headers: {
-        Authorization: "Bearer " + process.env.VUE_APP_BEARER_TOKEN,
-      },
-    })
+  api
+    .get("/personnes/")
     .then((response) => {
       this.people = response.data.data;
     });
