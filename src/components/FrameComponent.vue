@@ -18,5 +18,6 @@ export default {
   padding: 1em;
   border-radius: 0.8em;
   box-shadow: 0 0 0.5em #dddddd;
+  overflow: auto;
 }
 </style>
