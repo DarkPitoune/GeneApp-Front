@@ -5,3 +5,12 @@ body {
   --text-color: #080708;
   --bg-color: #fdffff;
 }
+
+a {
+  color: var(--main-blue);
+  text-decoration: none;
+}
+
+a:visited {
+  filter: brightness(0.5);
+}

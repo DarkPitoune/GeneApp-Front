@@ -1,36 +1,58 @@
 <template>
   <div class="card">
     <div class="card-header">
-      John Doe
+      {{ this.nom }}
     </div>
     <img
       src="http://localhost:1337/uploads/20210223_154519_min_66f2603856.jpg"
       alt="profile"
     />
     <table>
-      <tr>
+      <tr v-if="this.naissance">
         <td>Naissance</td>
-        <td>John</td>
+        <td>{{ this.naissance }}</td>
       </tr>
-      <tr>
+      <tr v-if="this.mariage">
         <td>Mariage</td>
         <td>Doe</td>
       </tr>
-      <tr>
+      <tr v-if="this.mort">
         <td>Mort</td>
         <td>Hier</td>
       </tr>
-      <tr>
+      <tr v-if="this.parents">
         <td>Parents</td>
-        <td>John Doe</td>
+        <td>
+          <a :href="`/profile/${this.parents.data[0].id}`">
+            {{ this.parents.data[0].attributes.Nom }}
+          </a>
+          <br />
+          <a
+            v-if="this.parents.data.length > 1"
+            :href="`/profile/${this.parents.data[1].id}`"
+          >
+            {{ this.parents.data[1].attributes.Nom }}
+          </a>
+        </td>
       </tr>
-      <tr>
+      <tr v-if="this.conjoint">
         <td>Conjoint</td>
-        <td>John Doe</td>
+        <td>
+          <a :href="`/profile/${this.conjoint.data.id}`">
+            {{ this.conjoint.data.attributes.Nom }}
+          </a>
+        </td>
       </tr>
-      <tr>
+      <tr v-if="this.enfants">
         <td>Enfants</td>
-        <td>John Doe</td>
+        <td>
+          <dev v-for="enfant in this.enfants.data" :key="enfant.id">
+            <a :href="`/profile/${enfant.id}`">
+              {{ enfant.attributes.Nom }}
+            </a>
+            <br />
+          </dev>
+        </td>
       </tr>
     </table>
     <button>
@@ -43,10 +65,13 @@
 export default {
   name: 'DescriptionCard',
   props: {
-    info: Object,
-  },
-  mounted() {
-    console.log(this.info);
+    nom: String,
+    naissance: String,
+    mort: String,
+    mariage: String,
+    parents: Object,
+    conjoint: Object,
+    enfants: Object,
   },
 }
 </script>
@@ -95,6 +120,11 @@ button:hover {
 
 table {
   width: 100%;
+}
+
+td {
+  vertical-align: top;
+  padding-bottom: 0.5em;
 }
 
 td:first-child {
