@@ -15,24 +15,25 @@
   </FrameComponent>
 </template>
 
-<script>
-import api from '/src/api'
-import { FrameComponent, DescriptionCard } from '@/components'
-import Markdown from 'vue3-markdown-it'
+<script lang="ts">
+import { defineComponent } from "vue";
+import api from "@/api";
+import { FrameComponent, DescriptionCard } from "@/components";
+import Markdown from "vue3-markdown-it";
 
 const fetchProfile = async function () {
-  const id = this.$route.params.id
-  api.get('/personnes/' + id + '?populate=*').then((response) => {
-    this.profileInfo = response.data.data.attributes
-  })
-}
+  const id = this.$route.params.id;
+  api.get("/personnes/" + id + "?populate=*").then((response) => {
+    this.profileInfo = response.data.data.attributes;
+  });
+};
 
-export default {
-  name: 'ProfileView',
+export default defineComponent({
+  name: "ProfileView",
   data() {
     return {
       profileInfo: {},
-    }
+    };
   },
   components: {
     FrameComponent,
@@ -43,9 +44,9 @@ export default {
     fetchProfile,
   },
   mounted() {
-    this.fetchProfile()
+    this.fetchProfile();
   },
-}
+});
 </script>
 
 <style scoped>

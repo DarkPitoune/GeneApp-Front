@@ -20,12 +20,13 @@ body {
 }
 </style>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { NavBar } from "@/components";
 
-export default {
+export default defineComponent({
   components: {
     NavBar,
   },
-};
+});
 </script>

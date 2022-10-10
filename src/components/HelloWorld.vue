@@ -18,34 +18,27 @@
   </div>
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+import api from "@/api";
 
-<script>
-import api from "/src/api";
-
-const fetchPeople = async function () {
-  api
-    .get("/personnes/")
-    .then((response) => {
-      this.people = response.data.data;
-    });
-};
-export default {
+export default defineComponent({
   name: "HelloWorld",
-  props: {
-    msg: String,
-  },
   data() {
     return {
       people: {},
     };
   },
-  methods: {
-    fetchPeople,
+  props: {
+    msg: String,
   },
+  methods: {},
   mounted() {
-    this.fetchPeople();
+    api.get("/personnes/").then(function (response: any) {
+      console.log(response);
+    });
   },
-};
+});
 </script>
 
 <style scoped>

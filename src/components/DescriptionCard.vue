@@ -46,24 +46,23 @@
       <tr v-if="this.enfants">
         <td>Enfants</td>
         <td>
-          <dev v-for="enfant in this.enfants.data" :key="enfant.id">
+          <div v-for="enfant in this.enfants.data" :key="enfant.id">
             <a :href="`/profile/${enfant.id}`">
               {{ enfant.attributes.Nom }}
             </a>
             <br />
-          </dev>
+          </div>
         </td>
       </tr>
     </table>
-    <button>
-      Trouver sur l'arbre généalogique
-    </button>
+    <button>Trouver sur l'arbre généalogique</button>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'DescriptionCard',
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "DescriptionCard",
   props: {
     nom: String,
     naissance: String,
@@ -73,7 +72,7 @@ export default {
     conjoint: Object,
     enfants: Object,
   },
-}
+});
 </script>
 
 <style scoped>

@@ -6,9 +6,7 @@
       </router-link>
       <h1>Généalogie d'Hébrail</h1>
     </div>
-    <div>
-      <unicon name="search" fill="white" />
-    </div>
+    <div>ICON</div>
   </nav>
 </template>
 
@@ -32,8 +30,9 @@ h1 {
 }
 </style>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
   name: "NavBar",
-};
+});
 </script>

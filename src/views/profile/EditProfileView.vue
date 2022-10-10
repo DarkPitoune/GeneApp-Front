@@ -10,13 +10,14 @@
   </FrameComponent>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { FrameComponent } from "@/components";
 
-export default {
+export default defineComponent({
   name: "EditProfileView",
   components: {
     FrameComponent,
   },
-};
+});
 </script>
