@@ -1,5 +1,6 @@
 <template>
   <FrameComponent>
+    <h1>{{ profileInfo.Nom }}</h1>
     <DescriptionCard
       :nom="profileInfo.Nom"
       :naissance="profileInfo.Naissance"
@@ -9,31 +10,23 @@
       :conjoint="profileInfo.Conjoint"
       :enfants="profileInfo.Enfants"
     />
-    <h1>{{ profileInfo.Nom }}</h1>
-    <hr />
+    <hr class="hidden-mobile"/>
     <Markdown :source="profileInfo.Biographie" />
   </FrameComponent>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import api from "@/api";
-import { FrameComponent, DescriptionCard } from "@/components";
-import Markdown from "vue3-markdown-it";
-
-const fetchProfile = async function () {
-  const id = this.$route.params.id;
-  api.get("/personnes/" + id + "?populate=*").then((response) => {
-    this.profileInfo = response.data.data.attributes;
-  });
-};
+import { defineComponent } from 'vue'
+import api from '@/api'
+import { FrameComponent, DescriptionCard } from '@/components'
+import Markdown from 'vue3-markdown-it'
 
 export default defineComponent({
-  name: "ProfileView",
+  name: 'ProfileView',
   data() {
     return {
       profileInfo: {},
-    };
+    }
   },
   components: {
     FrameComponent,
@@ -41,12 +34,18 @@ export default defineComponent({
     DescriptionCard,
   },
   methods: {
-    fetchProfile,
+    fetchProfile: async function () {
+      const id = this.$route.params.id
+      api.get('/personnes/' + id + '?populate=*')
+      .then((response) => {
+        this.profileInfo = response.data.data.attributes
+      })
+    },
   },
-  mounted() {
-    this.fetchProfile();
+  beforeMount() {
+    this.fetchProfile()
   },
-});
+})
 </script>
 
 <style scoped>

@@ -21,7 +21,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import api from "@/api";
-
 export default defineComponent({
   name: "HelloWorld",
   data() {

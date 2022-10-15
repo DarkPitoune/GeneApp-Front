@@ -79,7 +79,7 @@ export default defineComponent({
 .card {
   display: flex;
   flex-direction: column;
-  width: 20em;
+  width: min(20em, calc(90%) - 2em);
   float: right;
   margin: 0 0 1em 1em;
   padding: 1.5em;
@@ -87,6 +87,13 @@ export default defineComponent({
   border: 1px solid #ddd;
   background-color: #fcfcfc;
   box-shadow: 0 0 0.5em #ddd;
+}
+
+@media (max-width: 760px) {
+  .card {
+    float: none;
+    margin: auto;
+  }
 }
 
 .card-header {

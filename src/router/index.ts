@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { HomeView, ProfileView, EditProfileView, NotFoundView } from "../views";
+import { HomeView, ProfileView, NotFoundView } from "../views";
 
 const routes = [
   {
@@ -11,11 +11,6 @@ const routes = [
     path: "/profile/:id",
     name: "profile",
     component: ProfileView,
-  },
-  {
-    path: "/profile/:id/edit",
-    name: "profile-edit",
-    component: EditProfileView,
   },
   {
     path: "/404",
