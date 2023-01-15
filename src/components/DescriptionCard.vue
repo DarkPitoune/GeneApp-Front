@@ -20,7 +20,7 @@
         <td>Mort</td>
         <td>Hier</td>
       </tr>
-      <tr v-if="profileInfo.Parents.data && profileInfo.Parents.length>0">
+      <tr v-if="profileInfo.Parents?.data.length > 0">
         <td>Parents</td>
         <td>
           <div v-for="parent in profileInfo.Parents" :key="parent.id">
@@ -31,7 +31,7 @@
           </div>
         </td>
       </tr>
-      <tr v-if="profileInfo.Conjoint">
+      <tr v-if="profileInfo.Conjoint?.data">
         <td>Conjoint</td>
         <td>
           <a :href="`/profile/${profileInfo.Conjoint.id}`">
@@ -39,7 +39,7 @@
           </a>
         </td>
       </tr>
-      <tr v-if="profileInfo.Enfants">
+      <tr v-if="profileInfo.Enfants?.data.length > 0">
         <td>Enfants</td>
         <td>
           <div v-for="enfant in profileInfo.Enfants" :key="enfant.id">
