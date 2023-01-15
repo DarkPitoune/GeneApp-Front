@@ -1,52 +1,48 @@
 <template>
   <div class="card">
     <div class="card-header">
-      {{ this.nom }}
+      {{ profileInfo.nom }}
     </div>
     <img
-      src="http://localhost:1337/uploads/20210223_154519_min_66f2603856.jpg"
+      src="https://media.licdn.com/dms/image/C4E03AQGzPNQ3lNkYUQ/profile-displayphoto-shrink_800_800/0/1644509024027?e=1678924800&v=beta&t=8CRaQpbZR5YAenWpaONZhWK_NthsBbTVmFncEDB0yXI"
       alt="profile"
     />
     <table>
-      <tr v-if="this.naissance">
+      <tr v-if="profileInfo.Naissance">
         <td>Naissance</td>
-        <td>{{ this.naissance }}</td>
+        <td>{{ profileInfo.Naissance }}</td>
       </tr>
-      <tr v-if="this.mariage">
+      <tr v-if="profileInfo.Mariage">
         <td>Mariage</td>
         <td>Doe</td>
       </tr>
-      <tr v-if="this.mort">
+      <tr v-if="profileInfo.Mort">
         <td>Mort</td>
         <td>Hier</td>
       </tr>
-      <tr v-if="this.parents">
+      <tr v-if="profileInfo.Parents.data && profileInfo.Parents.length>0">
         <td>Parents</td>
         <td>
-          <a :href="`/profile/${this.parents.data[0].id}`">
-            {{ this.parents.data[0].attributes.Nom }}
-          </a>
-          <br />
-          <a
-            v-if="this.parents.data.length > 1"
-            :href="`/profile/${this.parents.data[1].id}`"
-          >
-            {{ this.parents.data[1].attributes.Nom }}
-          </a>
+          <div v-for="parent in profileInfo.Parents" :key="parent.id">
+            <a :href="`/profile/${parent.id}`">
+              {{ parent.attributes.Nom }}
+            </a>
+            <br />
+          </div>
         </td>
       </tr>
-      <tr v-if="this.conjoint">
+      <tr v-if="profileInfo.Conjoint">
         <td>Conjoint</td>
         <td>
-          <a :href="`/profile/${this.conjoint.data.id}`">
-            {{ this.conjoint.data.attributes.Nom }}
+          <a :href="`/profile/${profileInfo.Conjoint.id}`">
+            {{ profileInfo.Conjoint.data.attributes.Nom }}
           </a>
         </td>
       </tr>
-      <tr v-if="this.enfants">
+      <tr v-if="profileInfo.Enfants">
         <td>Enfants</td>
         <td>
-          <div v-for="enfant in this.enfants.data" :key="enfant.id">
+          <div v-for="enfant in profileInfo.Enfants" :key="enfant.id">
             <a :href="`/profile/${enfant.id}`">
               {{ enfant.attributes.Nom }}
             </a>
@@ -61,16 +57,44 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
+interface ProfileInfoInterface {
+  Nom: String;
+  Mort: String;
+  Mariage: String;
+  Parents: String;
+  Conjoint: Object;
+  Enfants: Object;
+}
+
+class ProfileInfo implements ProfileInfoInterface {
+  Nom: String;
+  Mort: String;
+  Mariage: String;
+  Parents: String;
+  Conjoint: Object;
+  Enfants: Object;
+  constructor(
+    Nom: String,
+    Mort: String,
+    Mariage: String,
+    Parents: String,
+    Conjoint: Object,
+    Enfants: Object
+  ) {
+    this.Nom = Nom;
+    this.Mort = Mort;
+    this.Mariage = Mariage;
+    this.Parents = Parents;
+    this.Conjoint = Conjoint;
+    this.Enfants = Enfants;
+  }
+}
+
 export default defineComponent({
   name: "DescriptionCard",
   props: {
-    nom: String,
-    naissance: String,
-    mort: String,
-    mariage: String,
-    parents: Object,
-    conjoint: Object,
-    enfants: Object,
+    profileInfo: ProfileInfo,
   },
 });
 </script>

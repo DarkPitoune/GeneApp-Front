@@ -6,9 +6,6 @@
     <div>
       <ul v-for="profile in people" :key="profile.id">
         <li>
-          <p>Type of profile.attributes is {{ typeof profile.attributes }}</p>
-        </li>
-        <li>
           <router-link :to="'/profile/' + profile.id">
             {{ profile.attributes.Nom }}
           </router-link>
@@ -19,25 +16,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import api from "@/api";
+import { defineComponent } from 'vue'
+import api from '@/api'
 export default defineComponent({
-  name: "HelloWorld",
+  name: 'HelloWorld',
   data() {
     return {
       people: {},
-    };
+    }
   },
   props: {
     msg: String,
   },
-  methods: {},
-  mounted() {
-    api.get("/personnes/").then(function (response: any) {
-      console.log(response);
-    });
+  methods: {
+    fetchPeople() {
+      api.get('/personnes/').then(response => {
+        this.people = response.data.data
+      })
+    },
   },
-});
+  created() {
+    this.fetchPeople()
+  },
+})
 </script>
 
 <style scoped>

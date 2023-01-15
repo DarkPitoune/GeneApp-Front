@@ -2,13 +2,7 @@
   <FrameComponent>
     <h1>{{ profileInfo.Nom }}</h1>
     <DescriptionCard
-      :nom="profileInfo.Nom"
-      :naissance="profileInfo.Naissance"
-      :mort="profileInfo.Mort"
-      :mariage="profileInfo.Mariage"
-      :parents="profileInfo.Parents"
-      :conjoint="profileInfo.Conjoint"
-      :enfants="profileInfo.Enfants"
+      :profileInfo="profileInfo"
     />
     <hr class="hidden-mobile"/>
     <Markdown :source="profileInfo.Biographie" />
@@ -37,8 +31,11 @@ export default defineComponent({
     fetchProfile: async function () {
       const id = this.$route.params.id
       api.get('/personnes/' + id + '?populate=*')
-      .then((response) => {
-        this.profileInfo = response.data.data.attributes
+      .then((response) => response.data)
+      .then((data) => data.data)
+      .then((data) => data.attributes)
+      .then((attributes) => {
+        this.profileInfo = attributes
       })
     },
   },
