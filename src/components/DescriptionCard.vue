@@ -4,8 +4,8 @@
       {{ profileInfo.nom }}
     </div>
     <img
-      src="https://media.licdn.com/dms/image/C4E03AQGzPNQ3lNkYUQ/profile-displayphoto-shrink_800_800/0/1644509024027?e=1678924800&v=beta&t=8CRaQpbZR5YAenWpaONZhWK_NthsBbTVmFncEDB0yXI"
-      alt="profile"
+      :src="portraitUrls[0]"
+      alt="profile-picture"
     />
     <table>
       <tr v-if="profileInfo.Naissance">
@@ -18,7 +18,7 @@
       </tr>
       <tr v-if="profileInfo.Mort">
         <td>Mort</td>
-        <td>Hier</td>
+        <td>{{ profileInfo.Mort}}</td>
       </tr>
       <tr v-if="profileInfo.Parents?.data.length > 0">
         <td>Parents</td>
@@ -58,44 +58,18 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-interface ProfileInfoInterface {
-  Nom: String;
-  Mort: String;
-  Mariage: String;
-  Parents: String;
-  Conjoint: Object;
-  Enfants: Object;
-}
-
-class ProfileInfo implements ProfileInfoInterface {
-  Nom: String;
-  Mort: String;
-  Mariage: String;
-  Parents: String;
-  Conjoint: Object;
-  Enfants: Object;
-  constructor(
-    Nom: String,
-    Mort: String,
-    Mariage: String,
-    Parents: String,
-    Conjoint: Object,
-    Enfants: Object
-  ) {
-    this.Nom = Nom;
-    this.Mort = Mort;
-    this.Mariage = Mariage;
-    this.Parents = Parents;
-    this.Conjoint = Conjoint;
-    this.Enfants = Enfants;
-  }
-}
-
 export default defineComponent({
   name: "DescriptionCard",
   props: {
-    profileInfo: ProfileInfo,
+    profileInfo: Object,
   },
+  computed: {
+    portraitUrls() {
+      return this.profileInfo.Portrait?.data.map((portrait: any) => {
+        return process.env.VUE_APP_API_URL + portrait.attributes.url;
+      }) || ["https://via.placeholder.com/150"];
+    },
+  }
 });
 </script>
 
@@ -129,6 +103,8 @@ export default defineComponent({
 
 img {
   padding: 0 0 0.5em 0;
+  width: 100%;
+
 }
 
 button {
