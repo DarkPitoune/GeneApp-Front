@@ -34,7 +34,7 @@
       <tr v-if="profileInfo.Conjoint?.data">
         <td>Conjoint</td>
         <td>
-          <a :href="`/profile/${profileInfo.Conjoint.id}`">
+          <a :href="`/profile/${profileInfo.Conjoint.data.id}`">
             {{ profileInfo.Conjoint.data.attributes.Nom }}
           </a>
         </td>

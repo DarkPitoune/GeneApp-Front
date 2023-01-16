@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { HomeView, ProfileView, NotFoundView } from "../views";
+import { HomeView, ProfileView, DetailsView, NotFoundView } from "../views";
 
 const routes = [
   {
@@ -11,6 +11,11 @@ const routes = [
     path: "/profile/:id",
     name: "profile",
     component: ProfileView,
+  },
+  {
+    path: "/article/:id",
+    name: "article",
+    component: DetailsView,
   },
   {
     path: "/404",
