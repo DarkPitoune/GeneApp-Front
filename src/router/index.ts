@@ -17,6 +17,10 @@ const routes = [
     name: "not-found",
     component: NotFoundView,
   },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/404",
+  },
 ];
 
 const router = createRouter({
