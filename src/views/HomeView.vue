@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Bienvenue sur l'app de généalogie d'Hébrail" />
+    <IndexView />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { HelloWorld } from "@/components";
+import { IndexView } from "@/components";
 
 export default defineComponent({
   name: "HomeView",
   components: {
-    HelloWorld,
+    IndexView,
   },
 });
 </script>

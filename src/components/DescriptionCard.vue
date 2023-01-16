@@ -128,7 +128,7 @@ export default defineComponent({
 }
 
 img {
-  padding: 0.5em 0;
+  padding: 0 0 0.5em 0;
 }
 
 button {
