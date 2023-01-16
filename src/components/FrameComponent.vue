@@ -14,11 +14,16 @@ export default defineComponent({
 <style>
 .frame {
   background-color: var(--bg-color);
-  width: 80%;
-  margin: 1.5em auto;
-  padding: 1em;
-  border-radius: 0.8em;
-  box-shadow: 0 0 0.5em #dddddd;
   overflow: auto;
+  padding: 1em;
+}
+
+@media (min-width: 768px) {
+  .frame {
+    width: 80%;
+    margin: 1.5em auto;
+    border-radius: 0.8em;
+    box-shadow: 0 0 0.5em #dddddd;
+  }
 }
 </style>
