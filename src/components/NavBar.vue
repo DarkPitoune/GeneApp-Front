@@ -1,12 +1,12 @@
 <template>
   <nav>
     <div id="title">
-      <router-link to="/">
-        <img src="/icons/left-arrow.svg" alt="logo" />
-      </router-link>
+      <span @click="goBack()">
+        <font-awesome-icon icon="fa-solid fa-chevron-left" />
+      </span>
       <h1>Généalogie d'Hébrail</h1>
     </div>
-    <div>ICON</div>
+    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
   </nav>
 </template>
 
@@ -17,16 +17,25 @@ nav {
   color: var(--bg-color);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 #title {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 h1 {
   margin: 0;
   padding: 0 0.5em;
+}
+
+/* Font Awesome */
+.svg-inline--fa {
+  color: var(--bg-color) !important;
+  cursor: pointer;
+  font-size: 1.2em;
 }
 </style>
 
@@ -34,5 +43,10 @@ h1 {
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "NavBar",
+  methods: {
+    goBack() {
+      window.history.back();
+    },
+  },
 });
 </script>

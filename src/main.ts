@@ -2,5 +2,19 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { Markdown } from "vue3-markdown-it";
 import router from "./router";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+  faMagnifyingGlass,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 
-createApp(App).use(router).use(Markdown).mount("#app");
+const app = createApp(App);
+app.use(router);
+app.use(Markdown);
+
+// Font Awesome
+library.add(faMagnifyingGlass, faChevronLeft);
+app.component("font-awesome-icon", FontAwesomeIcon);
+
+app.mount("#app");
