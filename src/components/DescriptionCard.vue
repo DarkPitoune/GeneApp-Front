@@ -3,10 +3,7 @@
     <div class="card-header">
       {{ profileInfo.nom }}
     </div>
-    <img
-      :src="portraitUrls[0]"
-      alt="profile-picture"
-    />
+    <img :src="portraitUrls[0]" alt="profile-picture" />
     <table>
       <tr v-if="profileInfo.Naissance">
         <td>Naissance</td>
@@ -18,7 +15,7 @@
       </tr>
       <tr v-if="profileInfo.Mort">
         <td>Mort</td>
-        <td>{{ profileInfo.Mort}}</td>
+        <td>{{ profileInfo.Mort }}</td>
       </tr>
       <tr v-if="profileInfo.Parents?.data.length > 0">
         <td>Parents</td>
@@ -65,11 +62,13 @@ export default defineComponent({
   },
   computed: {
     portraitUrls() {
-      return this.profileInfo.Portrait?.data.map((portrait: any) => {
-        return process.env.VUE_APP_API_URL + portrait.attributes.url;
-      }) || ["https://via.placeholder.com/150"];
+      return (
+        this.profileInfo.Portrait?.data.map((portrait: any) => {
+          return process.env.VUE_APP_API_URL + portrait.attributes.url;
+        }) || ["https://via.placeholder.com/150"]
+      );
     },
-  }
+  },
 });
 </script>
 
@@ -104,7 +103,6 @@ export default defineComponent({
 img {
   padding: 0 0 0.5em 0;
   width: 100%;
-
 }
 
 button {

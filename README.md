@@ -24,6 +24,8 @@ npm run build
 npm run lint
 ```
 
+Follow instructions at pre-commit.com to install the prettier pre-commit hook
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
