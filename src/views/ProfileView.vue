@@ -1,16 +1,20 @@
 <template>
   <FrameComponent>
-    <h1>{{ profileInfo.Nom }}</h1>
+    <h1>
+      {{ profileInfo.Nom }}
+      <LoaderComponent type="title" v-if="!profileInfo.Nom" />
+    </h1>
     <DescriptionCard :profileInfo="profileInfo" />
     <hr class="hidden-mobile" />
     <Markdown :source="profileInfo.Biographie" />
+    <LoaderComponent type="text" v-if="!profileInfo.Biographie" />
   </FrameComponent>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import api from "@/api";
-import { FrameComponent, DescriptionCard } from "@/components";
+import { FrameComponent, DescriptionCard, LoaderComponent } from "@/components";
 import Markdown from "vue3-markdown-it";
 
 export default defineComponent({
@@ -24,6 +28,7 @@ export default defineComponent({
     FrameComponent,
     Markdown,
     DescriptionCard,
+    LoaderComponent,
   },
   methods: {
     fetchProfile: async function () {
