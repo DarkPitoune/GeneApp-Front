@@ -1,31 +1,19 @@
-# geneapp-front
+# The d'Hébrail's family genealogy app
 
-## Project setup
+This is the front end repository for the d'Hébrail's genealogy app. It is a Vue 3 project inspired by the [gene-app project](https://github.com/genea-app/genea-app).
+It currently runs at [genealogie.dhebrail.fr](https://genealogie.dhebrail.fr).
 
-```
-npm install
-```
+## How to run
 
-### Compiles and hot-reloads for development
+The project uses node.js and npm. Ensure you have a recent version of node.js installed (14 or more).
 
-```
-npm run serve
-```
+Clone the repository and run the following commands in the project directory.
 
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-Follow instructions at pre-commit.com to install the prettier pre-commit hook
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- install dependencies: `npm install`
+- install prettier and pre-commit globally: `npm install -g prettier pre-commit`
+- create an env file: `cp .env.example .env.local` and fill it with your own values
+- **to run locally**:
+  - run the app in development mode: `npm run serve`
+  - open the app in your browser: `http://localhost:8080`
+  - lint before commit :`npm run lint && prettier --write .`
+- **to compile a production build**: `npm run build`. The build artifacts will be stored in the `dist/` directory.
