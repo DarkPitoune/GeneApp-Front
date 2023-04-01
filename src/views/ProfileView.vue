@@ -1,13 +1,13 @@
 <template>
   <FrameComponent>
     <h1>
-      {{ profileInfo.Nom }}
-      <LoaderComponent type="title" v-if="!profileInfo.Nom" />
+      <LoaderComponent type="title" v-if="!profileInfo?.Nom" />
+      <span v-else>{{ profileInfo.Nom }} </span>
     </h1>
     <DescriptionCard :profileInfo="profileInfo" />
     <hr class="hidden-mobile" />
-    <Markdown :source="profileInfo.Biographie" />
-    <LoaderComponent type="text" v-if="!profileInfo.Biographie" />
+    <Markdown :source="profileInfo?.Biographie ?? ''" />
+    <LoaderComponent type="text" v-if="!profileInfo?.Biographie" />
   </FrameComponent>
 </template>
 
@@ -16,12 +16,13 @@ import { defineComponent } from "vue";
 import api from "@/api";
 import { FrameComponent, DescriptionCard, LoaderComponent } from "@/components";
 import Markdown from "vue3-markdown-it";
+import { ProfileInfoInterface } from "@/interfaces";
 
 export default defineComponent({
   name: "ProfileView",
   data() {
     return {
-      profileInfo: {},
+      profileInfo: {} as ProfileInfoInterface,
     };
   },
   components: {

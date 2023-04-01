@@ -30,12 +30,26 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import api from "@/api";
+
+interface People {
+  id: string;
+  attributes: {
+    Nom: string;
+  };
+}
+interface Articles {
+  id: string;
+  attributes: {
+    Titre: string;
+  };
+}
+
 export default defineComponent({
   name: "IndexView",
   data() {
     return {
-      people: {},
-      articles: {},
+      people: [] as People[],
+      articles: [] as Articles[],
     };
   },
   methods: {

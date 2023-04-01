@@ -20,6 +20,7 @@ export default defineComponent({
   props: {
     type: {
       type: String,
+      default: "title",
     },
   },
 });

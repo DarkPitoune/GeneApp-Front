@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      {{ profileInfo.nom }}
+      {{ profileInfo.Nom }}
     </div>
     <img :src="portraitUrls[0]" alt="profile-picture" />
     <table>
@@ -20,7 +20,7 @@
       <tr v-if="profileInfo.Parents?.data.length > 0">
         <td>Parents</td>
         <td>
-          <div v-for="parent in profileInfo.Parents" :key="parent.id">
+          <div v-for="parent in profileInfo.Parents.data" :key="parent.id">
             <a :href="`/profile/${parent.id}`">
               {{ parent.attributes.Nom }}
             </a>
@@ -39,7 +39,7 @@
       <tr v-if="profileInfo.Enfants?.data.length > 0">
         <td>Enfants</td>
         <td>
-          <div v-for="enfant in profileInfo.Enfants" :key="enfant.id">
+          <div v-for="enfant in profileInfo.Enfants.data" :key="enfant.id">
             <a :href="`/profile/${enfant.id}`">
               {{ enfant.attributes.Nom }}
             </a>
@@ -53,20 +53,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+import { ProfileInfoInterface } from "@/interfaces";
 
 export default defineComponent({
   name: "DescriptionCard",
   props: {
-    profileInfo: Object,
+    profileInfo: {
+      type: Object as PropType<ProfileInfoInterface>,
+      required: true,
+    },
   },
   computed: {
     portraitUrls() {
-      return (
-        this.profileInfo.Portrait?.data.map((portrait: any) => {
-          return process.env.VUE_APP_API_URL + portrait.attributes.url;
-        }) || ["https://via.placeholder.com/150"]
-      );
+      return this.profileInfo.Portrait?.data
+        ? this.profileInfo.Portrait.data.map((portrait: any) => {
+            return process.env.VUE_APP_API_URL + portrait.attributes.url;
+          })
+        : ["https://via.placeholder.com/150"];
     },
   },
 });
