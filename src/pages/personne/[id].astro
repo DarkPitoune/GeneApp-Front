@@ -1,0 +1,26 @@
+---
+import fetchApi from '@lib/strapi';
+import type {ProfileResponse, Profile} from '@interfaces/profile'
+import Layout from '@layouts/Layout.astro';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+  const profiles = await fetchApi<ProfileResponse[]>({
+    endpoint: 'personnes',
+    wrappedByKey: 'data',
+  });
+
+  return profiles.map((profileResponse) => ({
+    params: { id: profileResponse.id },
+    props: profileResponse.attributes,
+  }));
+}
+type Props = Profile;
+
+const profile = Astro.props;
+---
+
+<Layout title={profile.Nom}>
+  <h1>{profile.Nom}</h1>
+  <p set:html={marked.parse(profile.Biographie)}></p>
+</Layout>
