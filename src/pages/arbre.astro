@@ -1,0 +1,17 @@
+---
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Arbre généalogique">
+  Arbre
+  <tree-component>
+    <canvas class="border" id="treeCanvas" width="500" height="500">
+      Your browser does not support the HTML canvas tag.
+    </canvas>
+  </tree-component>
+</Layout>
+
+<script>
+  import Tree from "@lib/tree";
+  customElements.define("tree-component", Tree);
+</script>
