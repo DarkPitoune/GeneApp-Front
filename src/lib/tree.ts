@@ -1,17 +1,19 @@
 import fetchApi from "./strapi";
-import {Profile, ProfileResponse} from "@interfaces/profile";
+import { Profile, ProfileResponse } from "@interfaces/profile";
 
 export default class Tree extends HTMLElement {
   constructor() {
     super();
     const urlParams = new URLSearchParams(window.location.search);
-    const idPersonne = urlParams.get('idPersonne');
-    if (!idPersonne) throw new Error('idPersonne is required');
+    const idPersonne = urlParams.get("idPersonne");
+    if (!idPersonne) throw new Error("idPersonne is required");
     this.init(idPersonne);
   }
 
   async init(idPersonne: string) {
-    return this.getPerson(idPersonne).then((person) => {this.drawPerson(person.attributes)});
+    return this.getPerson(idPersonne).then((person) => {
+      this.drawPerson(person.attributes);
+    });
   }
 
   async getPerson(id: string) {
@@ -41,7 +43,7 @@ export default class Tree extends HTMLElement {
       y + boxHeight,
       x + boxWidth - radius,
       y + boxHeight,
-      radius
+      radius,
     );
     ctx.lineTo(x + radius, y + boxHeight);
     ctx.arcTo(x, y + boxHeight, x, y + boxHeight - radius, radius);

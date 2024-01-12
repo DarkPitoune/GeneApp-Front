@@ -3,20 +3,14 @@ import fetchApi from '@lib/strapi';
 import type {ArticleResponse, Article} from '@interfaces/article'
 import Layout from '@layouts/Layout.astro';
 
-export async function getStaticPaths() {
-  const articles = await fetchApi<ArticleResponse[]>({
-    endpoint: 'articles',
-    wrappedByKey: 'data',
-  });
+type Params = {id:string};
 
-  return articles.map((articleResponse) => ({
-    params: { id: articleResponse.id },
-    props: articleResponse.attributes,
-  }));
-}
-type Props = Article;
+const {id} = Astro.params;
 
-const article = Astro.props;
+const article = await fetchApi<ArticleResponse>({
+  endpoint: `articles/${id}`,
+  wrappedByKey: 'data',
+}).then((articleResponse) => articleResponse.attributes);
 ---
 
 <Layout title={article.Titre}>
