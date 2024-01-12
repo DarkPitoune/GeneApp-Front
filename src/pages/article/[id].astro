@@ -1,9 +1,7 @@
 ---
 import fetchApi from '@lib/strapi';
-import type {ArticleResponse, Article} from '@interfaces/article'
+import type {ArticleResponse} from '@interfaces/article'
 import Layout from '@layouts/Layout.astro';
-
-type Params = {id:string};
 
 const {id} = Astro.params;
 

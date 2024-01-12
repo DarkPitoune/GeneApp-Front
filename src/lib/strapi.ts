@@ -28,8 +28,8 @@ export default async function fetchApi<T>({
   );
 
   if (query) {
-    Object.entries(query).forEach(([key, value]) => {
-      url.searchParams.append(key, value);
+    Object.entries(query).forEach((entry) => {
+      url.searchParams.append(entry[0], entry[1]);
     });
   }
   const res = await fetch(url.toString(), {
