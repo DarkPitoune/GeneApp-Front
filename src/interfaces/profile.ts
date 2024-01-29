@@ -1,3 +1,5 @@
+import { PortraitResponse } from './portrait';
+
 export interface Profile {
   Nom: string;
   Biographie: string;
@@ -7,6 +9,7 @@ export interface Profile {
   Parents: { data: ProfileResponse[] };
   Enfants: { data: ProfileResponse[] };
   Conjoint: { data: ProfileResponse };
+  Portrait: { data: [PortraitResponse] };
 }
 
 export interface ProfileResponse {
