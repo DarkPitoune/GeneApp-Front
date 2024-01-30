@@ -1,0 +1,43 @@
+---
+import { Profile } from "@interfaces/profile";
+import pb from "@lib/pb";
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+const mariages = await pb.collection("mariages").getFullList({
+  filter: `husband = '${profile.id}' || wife = '${profile.id}'`,
+  expand: "husband, wife",
+});
+
+let husband: Profile;
+let wife: Profile;
+let children: any[] = [];
+
+if (mariages.length > 0) {
+  children = await pb.collection("parenthoods").getFullList({
+    filter: `mariage = '${mariages[0].id}'`,
+    expand: "child",
+  });
+
+  husband = profile.sex === "M" ? profile : mariages[0].expand.husband;
+  wife = profile.sex === "F" ? profile : mariages[0].expand.wife;
+} else {
+  husband = profile.sex === "M" ? profile : null;
+  wife = profile.sex === "F" ? profile : null;
+}
+---
+
+<div class="flex">
+  <div class="flex items-center">
+    <div class="py-2 pr-6 pl-0">
+      {husband && <div class="w-32 h-8 bg-blue-100">{husband.name}</div>}
+      {wife && <div class="w-32 h-8 bg-pink-100">{wife.name}</div>}
+    </div>
+  </div>
+  <div class="flex flex-col justify-center">
+    {children.map((child) => <Astro.self profile={child.expand.child} />)}
+  </div>
+</div>

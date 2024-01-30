@@ -1238,7 +1238,7 @@ cliui@^8.0.1:
     strip-ansi "^6.0.1"
     wrap-ansi "^7.0.0"
 
-clsx@^2.0.0:
+clsx@^2.0.0, clsx@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.0.tgz#e851283bcb5c80ee7608db18487433f7b23f77cb"
   integrity sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==
@@ -3057,6 +3057,11 @@ pkg-dir@^4.2.0:
   integrity sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
   dependencies:
     find-up "^4.0.0"
+
+pocketbase@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/pocketbase/-/pocketbase-0.21.0.tgz#1891136a9da27b0c370b308250f41fa2c5a604b8"
+  integrity sha512-WGA5qxW9jzwOTx0i3FNhkKBlT2F5EvC8qZDYv14SB3BeOZVAqs6wMTj7vAXD52V0Fg8zF4XPHJCAJK04fw1rqg==
 
 postcss-import@^15.1.0:
   version "15.1.0"

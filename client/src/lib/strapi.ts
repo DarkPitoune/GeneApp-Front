@@ -1,3 +1,5 @@
+import pb from "./pb";
+const a=pb
 interface Props {
   endpoint: string;
   query?: Record<string, string>;

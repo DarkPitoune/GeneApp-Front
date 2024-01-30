@@ -1,0 +1,22 @@
+---
+import { Profile } from '@interfaces/profile';
+import Layout from '@layouts/Layout.astro'
+import pb from '@lib/pb'
+
+const {id} = Astro.params;
+
+const profile = await pb.collection('profiles').getOne<Profile>(id);
+const mariages = await pb.collection('mariages').getFullList({filter:`husband = '${id}' || wife = '${id}'`, expand:'husband, wife'});
+---
+
+<Layout title={profile.name}>
+  <h1>{profile.name}</h1>
+  <div set:html={profile.description} />
+  <h3>Mariages</h3>
+  <ul>
+    {mariages.map(mariage => (
+      <li>
+        <a href={`/profile/${mariage.expand.husband.id}`}>{mariage.expand.husband.name} & {mariage.expand.wife.name}</a>
+      </li>
+    ))}
+</Layout>

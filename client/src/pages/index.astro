@@ -1,19 +1,10 @@
 ---
+import { Profile } from '@interfaces/profile';
 import Layout from '@layouts/Layout.astro';
-import fetchApi from '@lib/strapi';
-import type {ProfileResponse} from '@interfaces/profile';
-import type {ArticleResponse} from '@interfaces/article';
+import pb from '@lib/pb';
 
-const profiles = await fetchApi<ProfileResponse[]>({
-	endpoint: 'personnes',
-	wrappedByKey: 'data',
-});
-
-const articles = await fetchApi<ArticleResponse[]>({
-	endpoint: 'articles',
-	wrappedByKey: 'data',
-});
-
+const profiles = await pb.collection('profiles').getFullList<Profile>();
+const articles = await pb.collection('articles').getFullList();
 
 ---
 
@@ -26,7 +17,7 @@ const articles = await fetchApi<ArticleResponse[]>({
         <h3 class="">Les gens</h3>
 				<ul>
 				{profiles.map((profile) => (
-					<li><a class="hover:underline" href={`/personne/${profile.id}`}>{profile.attributes.Nom}</a></li>
+					<li><a class="hover:underline" href={`/profile/${profile.id}`}>{profile.name}</a></li>
 				))}
 				</ul>
       </div>
@@ -35,7 +26,7 @@ const articles = await fetchApi<ArticleResponse[]>({
 				<ul>
 					{
 						articles.map((article) => (
-							<li><a class="hover:underline" href={`/article/${article.id}`}>{article.attributes.Titre}</a></li>
+							<li><a class="hover:underline" href={`/article/${article.id}`}>{article.title}</a></li>
 						))
 					}
 				</ul>
