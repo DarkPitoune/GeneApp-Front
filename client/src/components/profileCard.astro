@@ -1,0 +1,29 @@
+---
+import { Profile } from "@interfaces/profile";
+import pb from "@lib/pb";
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+const mariages = await pb.collection("mariages").getFullList({
+  filter: `husband = '${profile.id}' || wife = '${profile.id}'`,
+  expand: "husband, wife",
+});
+---
+
+<h1>{profile.name}</h1>
+<div set:html={profile.description} />
+<h3>Mariages</h3>
+<ul>
+  {
+    mariages.map((mariage) => (
+      <li>
+        <a href={`/profile/${mariage.expand.husband.id}`}>
+          {mariage.expand.husband.name} & {mariage.expand.wife.name}
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -4,11 +4,30 @@ import { Profile } from "@interfaces/profile";
 import Layout from "@layouts/Layout.astro";
 import pb from "@lib/pb";
 
-const profile = await pb
+const elder = await pb
   .collection("profiles")
-  .getOne<Profile>("380l6ktclp8gtj9");
+  .getList<Profile>(1, 1, { sort: "birthDate" })
+  .then((res) => res.items[0]);
+
+const profileId = Astro.url.searchParams.get("profileId") || "";
+
+const profile: Profile | void = await pb
+  .collection("profiles")
+  .getOne<Profile>(profileId)
+  .catch(() => {
+    Astro.redirect("/tree");
+  });
 ---
 
-<Layout title={profile.name}>
-  <TreeNode profile={profile} />
+<Layout title={profile ? profile.name : "Arbre généalogique"}>
+  <div class="p-12 w-full h-full overflow-scroll">
+    <TreeNode profile={elder} />
+  </div>
+  <div
+    id="profile-card"
+    hx-get={`/profile/partial/${profile ? profileId : ""}`}
+    hx-trigger="load"
+    class="absolute w-1/2 right-0 top-0"
+  >
+  </div>
 </Layout>

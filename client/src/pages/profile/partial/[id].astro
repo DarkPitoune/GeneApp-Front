@@ -1,0 +1,36 @@
+---
+import { Profile } from "@interfaces/profile";
+import pb from "@lib/pb";
+
+const { id } = Astro.params;
+
+const profile = await pb.collection("profiles").getOne<Profile>(id);
+const mariages = await pb.collection("mariages").getFullList({
+  filter: `husband = '${id}' || wife = '${id}'`,
+  expand: "husband, wife",
+});
+export const partial = true;
+---
+
+<div class="h-full p-4">
+  <div class="bg-white shadow-lg rounded-lg p-4">
+    <h1>{profile.name}</h1>
+    <div set:html={profile.description} />
+    <h3>Mariages</h3>
+    <ul>
+      {
+        mariages.map((mariage) => (
+          <li>
+            <a href={`/tree?profileId=${id}`}>
+              {mariage.expand.husband.name} & {mariage.expand.wife.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+<script define:vars={{ id: profile.id, name: profile.name }}>
+  document.title = name;
+  window.history.pushState({}, "", `/tree?profileId=${id}`);
+</script>

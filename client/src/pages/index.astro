@@ -1,35 +1,48 @@
 ---
-import { Profile } from '@interfaces/profile';
-import Layout from '@layouts/Layout.astro';
-import pb from '@lib/pb';
+import { Profile } from "@interfaces/profile";
+import Layout from "@layouts/Layout.astro";
+import pb from "@lib/pb";
 
-const profiles = await pb.collection('profiles').getFullList<Profile>();
-const articles = await pb.collection('articles').getFullList();
-
+const profiles = await pb.collection("profiles").getFullList<Profile>();
+const articles = await pb.collection("articles").getFullList();
 ---
 
 <Layout title="Généalogie d'Hébrail">
   <div class="text-center flex flex-col gap-10">
     <h1>Bienvenue sur l'app de généalogie d'Hébrail</h1>
     <p>Cliquez sur un des liens ci-dessous pour commencer à naviguer</p>
+    <p>
+      Ou alors allez voir <a class="hover:underline" href="/tree"
+        >l'arbre généalogique</a>
+    </p>
     <div class="flex justify-around">
       <div>
         <h3 class="">Les gens</h3>
-				<ul>
-				{profiles.map((profile) => (
-					<li><a class="hover:underline" href={`/profile/${profile.id}`}>{profile.name}</a></li>
-				))}
-				</ul>
+        <ul>
+          {
+            profiles.map((profile) => (
+              <li>
+                <a class="hover:underline" href={`/profile/${profile.id}`}>
+                  {profile.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
       <div>
         <h3>Les articles</h3>
-				<ul>
-					{
-						articles.map((article) => (
-							<li><a class="hover:underline" href={`/article/${article.id}`}>{article.title}</a></li>
-						))
-					}
-				</ul>
+        <ul>
+          {
+            articles.map((article) => (
+              <li>
+                <a class="hover:underline" href={`/article/${article.id}`}>
+                  {article.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </div>
