@@ -1,11 +1,11 @@
 ---
-import Layout from '@layouts/Layout.astro'
-import pb from '@lib/pb'
+import Layout from "@layouts/Layout.astro";
 
-const {id} = Astro.params;
+const pb = Astro.locals.pb;
 
-const article = await pb.collection('articles').getOne(id);
+const { id } = Astro.params;
 
+const article = await pb.collection("articles").getOne(id);
 ---
 
 <Layout title={article.title}>

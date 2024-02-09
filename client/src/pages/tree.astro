@@ -2,7 +2,8 @@
 import TreeNode from "@components/treeNode.astro";
 import { Profile } from "@interfaces/profile";
 import Layout from "@layouts/Layout.astro";
-import pb from "@lib/pb";
+
+const pb = Astro.locals.pb;
 
 const elder = await pb
   .collection("profiles")
