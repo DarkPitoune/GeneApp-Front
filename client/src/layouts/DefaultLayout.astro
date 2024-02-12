@@ -4,8 +4,6 @@ interface Props {
 }
 
 const { title } = Astro.props;
-
-const user = Astro.locals.pb.authStore.model;
 ---
 
 <!doctype html>
@@ -34,13 +32,6 @@ const user = Astro.locals.pb.authStore.model;
     <title>{title}</title>
   </head>
   <body>
-    <nav>
-      <a href="/api/logout">Deconnexion</a>
-      <a href="/login">Connexion</a>
-      <div>
-        Bonjour {user ? user.username : "inconnu"}
-      </div>
-    </nav>
     <main><slot /></main>
   </body>
 </html>

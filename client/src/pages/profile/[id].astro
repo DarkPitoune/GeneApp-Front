@@ -1,18 +1,16 @@
 ---
 import { Profile } from "@interfaces/profile";
-import Layout from "@layouts/Layout.astro";
+import Layout from "@layouts/ConnectedLayout.astro";
 
 const pb = Astro.locals.pb;
 
 const { id } = Astro.params;
 
 const profile = await pb.collection("profiles").getOne<Profile>(id);
-const mariages = await pb
-  .collection("mariages")
-  .getFullList({
-    filter: `husband = '${id}' || wife = '${id}'`,
-    expand: "husband, wife",
-  });
+const mariages = await pb.collection("mariages").getFullList({
+  filter: `husband = '${id}' || wife = '${id}'`,
+  expand: "husband, wife",
+});
 ---
 
 <Layout title={profile.name}>

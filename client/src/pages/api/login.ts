@@ -7,14 +7,11 @@ export const POST: APIRoute = async ({ request }) => {
     const params = new URLSearchParams(body);
     const email = params.get("email");
     const password = params.get("password");
-    console.log("email", email);
-    console.log("password", password);
     const authData = await pb
       .collection("users")
       .authWithPassword(email, password);
 
     const cookie = pb.authStore.exportToCookie();
-    console.log("cookie", cookie);
 
     const response = new Response(null, { status: 302 });
     response.headers.append("set-cookie", cookie);
