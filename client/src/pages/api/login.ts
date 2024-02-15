@@ -7,9 +7,7 @@ export const POST: APIRoute = async ({ request }) => {
     const params = new URLSearchParams(body);
     const email = params.get("email");
     const password = params.get("password");
-    const authData = await pb
-      .collection("users")
-      .authWithPassword(email, password);
+    await pb.collection("users").authWithPassword(email, password);
 
     const cookie = pb.authStore.exportToCookie();
 
@@ -18,6 +16,6 @@ export const POST: APIRoute = async ({ request }) => {
     response.headers.append("Location", "/");
     return response;
   } catch (e) {
-    return new Response(e.message, { status: 400 });
+    return new Response(e.message, { status: 500 });
   }
 };

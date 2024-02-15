@@ -38,6 +38,7 @@ const user = Astro.locals.pb.authStore.model;
       <div>
         Bonjour {user ? user.username : "inconnu"}
       </div>
+      <a href="/">Accueil</a>
       <a href="/api/logout">Deconnexion</a>
     </nav>
     <main><slot /></main>

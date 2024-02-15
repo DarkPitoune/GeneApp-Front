@@ -3,7 +3,8 @@ import PocketBase from "pocketbase";
 import { defineMiddleware } from "astro/middleware";
 
 export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
-  if (request.url.includes("/api")) return await next();
+  if (request.url.includes("/login") || request.url.includes("/logout"))
+    return await next();
   locals.pb = new PocketBase("https://api.genealogie.dhebrail.fr");
   locals.pb.autoCancellation(false);
 

@@ -2,11 +2,12 @@
 import { Profile } from "@interfaces/profile";
 
 const pb = Astro.locals.pb;
+const isAdmin = pb.authStore.model.isAdmin;
 
 const { id } = Astro.params;
 
 const profile = await pb.collection("profiles").getOne<Profile>(id);
-const mariages = await pb.collection("mariages").getFullList({
+const marriages = await pb.collection("mariages").getFullList({
   filter: `husband = '${id}' || wife = '${id}'`,
   expand: "husband, wife",
 });
@@ -14,24 +15,39 @@ export const partial = true;
 ---
 
 <div class="h-full p-4">
-  <div class="bg-white shadow-lg rounded-lg p-4">
-    <h1>{profile.name}</h1>
+  <div class="bg-white shadow-lg rounded-lg p-4 relative">
+    <h1 contenteditable={isAdmin} class="text-xl font-bold">{profile.name}</h1>
+    <button
+      hx-get="/profile/partial"
+      hx-target="#profile-card"
+      class="absolute top-4 right-4 flex items-center justify-center w-8 h-8 bg-gray-200 hover:bg-gray-300 text-gray-600 hover:text-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400"
+    >
+      <img src="/icons/cross.svg" alt="cross" class="w-4 h-4" />
+    </button>
+
     <div set:html={profile.description} />
-    <h3>Mariages</h3>
-    <ul>
-      {
-        mariages.map((mariage) => (
-          <li>
-            <a href={`/tree?profileId=${id}`}>
-              {mariage.expand.husband.name} & {mariage.expand.wife.name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    {
+      isAdmin && !marriages.length ? (
+        <button
+          hx-post={`/api/addMarriage?profileId=${profile.id}`}
+          hx-none="none"
+          class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        >
+          Ajouter mariage
+        </button>
+      ) : (
+        <button
+          hx-post={`/api/addChild?marriageId=${marriages[0].id}`}
+          hx-none="none"
+          class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        >
+          Ajouter enfant
+        </button>
+      )
+    }
   </div>
 </div>
-<script define:vars={{ id: profile.id, name: profile.name }}>
-  document.title = name;
+<script define:vars={{ id: profile.id, personName: profile.name }}>
+  document.title = personName;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
 </script>

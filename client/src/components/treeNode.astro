@@ -1,7 +1,8 @@
 ---
 import { Profile } from "@interfaces/profile";
 import { Parenthood } from "@interfaces/parenthood";
-import pb from "@lib/pb";
+
+const pb = Astro.locals.pb;
 
 interface Props {
   profile: Profile;

@@ -2,4 +2,8 @@
 export const partial = true;
 ---
 
-<div></div>
+// I don't know why but without define:vars, the script is empty
+<script define:vars={{}}>
+  window.history.pushState({}, "", "/tree");
+  document.title = "Généalogie d'Hébrail";
+</script>
