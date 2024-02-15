@@ -30,7 +30,7 @@ export const partial = true;
       isAdmin && !marriages.length ? (
         <button
           hx-post={`/api/addMarriage?profileId=${profile.id}`}
-          hx-none="none"
+          hx-swap="none"
           class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         >
           Ajouter mariage
@@ -38,7 +38,7 @@ export const partial = true;
       ) : (
         <button
           hx-post={`/api/addChild?marriageId=${marriages[0].id}`}
-          hx-none="none"
+          hx-swap="none"
           class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         >
           Ajouter enfant
