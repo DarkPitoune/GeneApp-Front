@@ -26,15 +26,17 @@ const user = Astro.locals.pb.authStore.model;
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#0534a3" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/pell/dist/pell.min.css">
+    <link rel="stylesheet" href="/styles.css" />
     <script src="//unpkg.com/alpinejs" defer></script>
     <script
       src="https://unpkg.com/htmx.org@1.9.10"
       integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
       crossorigin="anonymous"></script>
-    <title>{title}</title>
-  </head>
-  <body>
-    <nav class="flex justify-between">
+      <title>{title}</title>
+    </head>
+    <body>
+      <nav class="flex justify-between">
       <div>
         Bonjour {user ? user.username : "inconnu"}
       </div>
@@ -42,5 +44,6 @@ const user = Astro.locals.pb.authStore.model;
       <a href="/api/logout">Deconnexion</a>
     </nav>
     <main><slot /></main>
+    <script define:vars={{}} src="https://unpkg.com/pell"></script>
   </body>
 </html>
