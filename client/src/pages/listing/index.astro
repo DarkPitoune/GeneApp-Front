@@ -1,0 +1,51 @@
+---
+import { Profile } from "@interfaces/profile";
+import Layout from "@layouts/ConnectedLayout.astro";
+
+const pb = Astro.locals.pb;
+
+const profiles = await pb.collection("profiles").getFullList<Profile>();
+const articles = await pb.collection("articles").getFullList();
+---
+
+<Layout title="Généalogie d'Hébrail">
+  <div class="text-center flex flex-col gap-10 p-8">
+    <h1>Bienvenue sur l'app de généalogie d'Hébrail</h1>
+    <p>Cliquez sur un des liens ci-dessous pour commencer à naviguer</p>
+    <p>
+      Ou alors allez voir <a class="hover:underline" href="/tree"
+        >l'arbre généalogique</a
+      >
+    </p>
+    <div class="flex justify-around">
+      <div>
+        <h3 class="text-xl pb-4 font-bold">Les gens</h3>
+        <ul>
+          {
+            profiles.map((profile) => (
+              <li>
+                <a class="hover:underline" href={`/profile/${profile.id}`}>
+                  {profile.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl pb-4 font-bold">Les articles</h3>
+        <ul>
+          {
+            articles.map((article) => (
+              <li>
+                <a class="hover:underline" href={`/article/${article.id}`}>
+                  {article.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</Layout>

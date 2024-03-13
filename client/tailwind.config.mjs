@@ -2,7 +2,12 @@
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "royal-blue": "#0534a3",
+        "discreet-cream": "#F8F6F1",
+      },
+    },
   },
   plugins: [],
 };

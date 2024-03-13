@@ -21,14 +21,16 @@ const profile: Profile | void = await pb
 ---
 
 <Layout title={profile ? profile.name : "Arbre généalogique"}>
-  <div class="p-12 w-full h-full overflow-scroll">
-    <TreeNode profile={elder} />
-  </div>
-  <div
-    id="profile-card"
-    hx-get={`/profile/partial/${profile ? profileId : ""}`}
-    hx-trigger="load"
-    class="absolute w-1/2 right-0 top-0"
-  >
+  <div class="flex justify-between">
+    <div class="overflow-scroll">
+      <TreeNode profile={elder} />
+    </div>
+    <div
+      id="profile-card"
+      hx-get={`/profile/partial/${profile ? profileId : ""}`}
+      hx-trigger="load"
+      class=""
+    >
+    </div>
   </div>
 </Layout>

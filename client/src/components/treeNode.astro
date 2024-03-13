@@ -39,6 +39,7 @@ if (mariages.length > 0) {
     {
       husband && (
         <button
+          id={`node-${husband.id}`}
           hx-get={`/profile/partial/${husband.id}`}
           hx-target="#profile-card"
           class:list={[
@@ -53,6 +54,7 @@ if (mariages.length > 0) {
     {
       wife && (
         <button
+          id={`node-${wife.id}`}
           hx-get={`/profile/partial/${wife.id}`}
           hx-target="#profile-card"
           class:list={[

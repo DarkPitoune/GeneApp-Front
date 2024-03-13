@@ -14,7 +14,7 @@ const marriages = await pb.collection("mariages").getFullList({
 export const partial = true;
 ---
 
-<div class="h-full p-4">
+<div class="h-full w-[50vw]">
   <div class="bg-white shadow-lg rounded-lg p-4 relative">
     <button
       hx-get="/profile/partial"
@@ -100,6 +100,7 @@ export const partial = true;
 <script define:vars={{ id: profile.id, personName: profile.name, personDescription: profile.description }}>
   document.title = personName;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
+  document.getElementById("node-" + id).scrollIntoView({ behavior: "smooth", inline: "center"});
   const editor = pell.init({
     element: document.getElementById("description-editor"),
     actions: [
