@@ -12,11 +12,11 @@ const articles = await pb.collection("articles").getFullList();
 ---
 
 <Layout title="Généalogie d'Hébrail">
-  <div class="bg-discreet-cream grid grid-cols-3 welcome_screen">
+  <div class="grid grid-cols-3 welcome_screen">
     <div
       class="col-span-2 text-right flex flex-col justify-center items-end gap-4"
     >
-      <div class="flex flex-col">
+      <div class="flex flex-col z-10">
         <h1 class="text-5xl font-serif font-medium">
           Bonjour <span class="text-royal-blue">{capitalizedName}</span> !
         </h1>
@@ -26,13 +26,26 @@ const articles = await pb.collection("articles").getFullList();
         <img src="/icons/search.svg" alt="Rechercher" class="w-6 h-6" />
         <input
           type="search"
+          id="globalSearch"
           placeholder="Rechercher une personne ou un article"
           class="grow focus:outline-none"
         />
       </div>
     </div>
-    <div class="col-span-1 overflow-hidden relative">
-      <img src="/images/bigBlason.png" alt="Blason d'Hébrail" class="h-screen absolute -right-10 -top-16" />
+    <img src="/images/bigBlason.png" alt="Blason d'Hébrail" class="h-[98vh] absolute right-0 top-1 translate-x-1/4" />
     </div>
-  </div>
+    <div class="bg_discover_landscape h-screen rounded-b-2xl">
+        <div class="bg-discreet-cream h-4 rounded-b-2xl" />
+        <div class="flex flex-col items-center p-48 gap-8 justify-around">
+            <div class="text-4xl font-serif font-semibold text-center">
+                Découvrez l'Histoire
+            </div>
+            <div class="max-w-3xl text-lg font-medium text-center">
+                Depuis plus de 1000 ans, la famille d'Hébrail se construit et s'agrandit. Nous avons regroupé pour vous tous ces noms et histoires et avons reconstitué son <span class="text-royal-blue">arbre généalogique</span>.
+            </div>
+            <a href="/tree" class="uppercase text-lg bg-black text-white hover:bg-gray-800 transition px-12 py-2 rounded-full">
+                Voir l'arbre généalogique
+            </a>
+        </div>
+    </div>
 </Layout>

@@ -1,0 +1,42 @@
+---
+import { Profile } from "@interfaces/profile";
+
+const pb = Astro.locals.pb;
+const isAdmin = pb.authStore.model.isAdmin;
+
+const { id } = Astro.params;
+
+const profile = await pb.collection("profiles").getOne<Profile>(id);
+const marriages = await pb.collection("mariages").getFullList({
+  filter: `husband = '${id}' || wife = '${id}'`,
+  expand: "husband, wife",
+});
+export const partial = true;
+---
+
+<div class="h-full w-[50vw]">
+  <div class="bg-white shadow-lg rounded-lg p-4 relative">
+    <button
+      hx-get="/profile/partial"
+      hx-target="#profile-card"
+      class="absolute top-4 right-4 flex items-center justify-center w-8 h-8 bg-gray-200 hover:bg-gray-300 text-gray-600 hover:text-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400"
+    >
+      <img src="/icons/cross.svg" alt="cross" class="w-4 h-4" />
+    </button>
+        <h1 class="text-xl font-bold">{profile.name}</h1>
+        <div set:html={profile.description} />
+        {isAdmin && (
+        <button
+          hx-get={`/profile/partial/${profile.id}/edit`}
+          hx-target="#profile-card"
+          class="bg-blue-500 text-white px-2 py-1 rounded-md mt-2"
+        >
+          Modifier
+        </button>
+        )}
+  </div>
+</div>
+<script define:vars={{ id: profile.id, personName: profile.name }}>
+  document.title = personName;
+  window.history.pushState({}, "", `/tree?profileId=${id}`);
+</script>
