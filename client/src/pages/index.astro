@@ -1,14 +1,10 @@
 ---
-import { Profile } from "@interfaces/profile";
 import Layout from "@layouts/ConnectedLayout.astro";
 
 const pb = Astro.locals.pb;
 const user = Astro.locals.pb.authStore.model;
 const capitalizedName =
   user.username.charAt(0).toUpperCase() + user.username.slice(1);
-
-const profiles = await pb.collection("profiles").getFullList<Profile>();
-const articles = await pb.collection("articles").getFullList();
 ---
 
 <Layout title="Généalogie d'Hébrail">
@@ -32,20 +28,31 @@ const articles = await pb.collection("articles").getFullList();
         />
       </div>
     </div>
-    <img src="/images/bigBlason.png" alt="Blason d'Hébrail" class="h-[98vh] absolute right-0 top-1 translate-x-1/4" />
+    <img
+      src="/images/bigBlason.png"
+      alt="Blason d'Hébrail"
+      class="h-[98vh] absolute right-0 top-1 translate-x-1/4"
+    />
+  </div>
+  <div class="bg_discover_landscape h-screen rounded-b-2xl">
+    <div class="bg-discreet-cream h-4 rounded-b-2xl"></div>
+    <div class="flex flex-col items-center p-48 gap-8 justify-around">
+      <div class="text-4xl font-serif font-semibold text-center">
+        Découvrez l'Histoire
+      </div>
+      <div class="max-w-3xl text-lg font-medium text-center">
+        Depuis plus de 1000 ans, la famille d'Hébrail se construit et
+        s'agrandit. Nous avons regroupé pour vous tous ces noms et histoires et
+        avons reconstitué son <span class="text-royal-blue"
+          >arbre généalogique</span
+        >.
+      </div>
+      <a
+        href="/tree"
+        class="uppercase text-lg bg-black text-white hover:bg-gray-800 transition px-12 py-2 rounded-full"
+      >
+        Voir l'arbre généalogique
+      </a>
     </div>
-    <div class="bg_discover_landscape h-screen rounded-b-2xl">
-        <div class="bg-discreet-cream h-4 rounded-b-2xl" />
-        <div class="flex flex-col items-center p-48 gap-8 justify-around">
-            <div class="text-4xl font-serif font-semibold text-center">
-                Découvrez l'Histoire
-            </div>
-            <div class="max-w-3xl text-lg font-medium text-center">
-                Depuis plus de 1000 ans, la famille d'Hébrail se construit et s'agrandit. Nous avons regroupé pour vous tous ces noms et histoires et avons reconstitué son <span class="text-royal-blue">arbre généalogique</span>.
-            </div>
-            <a href="/tree" class="uppercase text-lg bg-black text-white hover:bg-gray-800 transition px-12 py-2 rounded-full">
-                Voir l'arbre généalogique
-            </a>
-        </div>
-    </div>
+  </div>
 </Layout>
