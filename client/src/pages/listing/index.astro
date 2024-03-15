@@ -1,6 +1,6 @@
 ---
 import { Profile } from "@interfaces/profile";
-import Layout from "@layouts/ConnectedLayout.astro";
+import Layout from "@layouts/Layout.astro";
 
 const pb = Astro.locals.pb;
 
@@ -8,7 +8,7 @@ const profiles = await pb.collection("profiles").getFullList<Profile>();
 const articles = await pb.collection("articles").getFullList();
 ---
 
-<Layout title="Généalogie d'Hébrail">
+<Layout title="Généalogie d'Hébrail" connected={true}>
   <div class="text-center flex flex-col gap-10 p-8">
     <h1>Bienvenue sur l'app de généalogie d'Hébrail</h1>
     <p>Cliquez sur un des liens ci-dessous pour commencer à naviguer</p>

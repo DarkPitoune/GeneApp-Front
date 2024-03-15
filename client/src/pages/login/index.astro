@@ -1,51 +1,42 @@
 ---
-import Layout from "@layouts/DefaultLayout.astro";
+import Layout from "@layouts/Layout.astro";
+
+const redirect = Astro.url.searchParams.get("redirect")! || "";
+console.log(redirect);
 ---
 
-<Layout title="Connexion">
-  <div class="max-w-md w-full h-screen mx-auto flex flex-col justify-around">
-    <form
-      method="post"
-      action="/api/login"
-      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-    >
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-          Adresse mail
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="email"
-          type="text"
-          placeholder="famille@dhebrail.com"
-          name="email"
-          required
-        />
-      </div>
-      <div class="mb-6">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="password"
-        >
-          Mot de passe
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-          id="password"
-          type="password"
-          name="password"
-          placeholder="******************"
-          required
-        />
-      </div>
+<Layout title="Connexion" connected={false}>
+  <form
+    method="post"
+    action=`/api/login?redirect=${redirect}`
+    class="flex flex-col justify-center grow gap-12 items-center"
+  >
+    <div class="text-4xl font-bold font-serif text-center">Connexion</div>
+    <div class="w-96 flex flex-col gap-6">
+      <input
+        class="appearance-none border rounded-xl py-3 px-6 w-full text-gray-700 leading-tight focus:outline-none focus:outline-royal-blue"
+        id="email"
+        type="text"
+        placeholder="Adresse e-mail"
+        name="email"
+        required
+      />
+      <input
+        class="appearance-none border rounded-xl py-3 px-6 w-full text-gray-700 leading-tight focus:outline-none focus:outline-royal-blue"
+        id="password"
+        type="password"
+        name="password"
+        placeholder="Mot de passe"
+        required
+      />
       <div class="flex items-center justify-center">
         <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none transition"
+          class="bg-black hover:bg-gray-700 focus:bg-gray-700 text-white font-bold py-2 px-4 w-full rounded-full focus:outline-none transition"
           type="submit"
         >
-          Connexion
+          Continuer
         </button>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </Layout>

@@ -1,6 +1,6 @@
 ---
 import { Profile } from "@interfaces/profile";
-import Layout from "@layouts/ConnectedLayout.astro";
+import Layout from "@layouts/Layout.astro";
 
 const pb = Astro.locals.pb;
 
@@ -13,7 +13,7 @@ const mariages = await pb.collection("mariages").getFullList({
 });
 ---
 
-<Layout title={profile.name}>
+<Layout title={profile.name} connected={true}>
   <h1>{profile.name}</h1>
   <div set:html={profile.description} />
   <h3>Mariages</h3>

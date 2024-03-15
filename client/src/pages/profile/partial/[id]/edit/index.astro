@@ -14,7 +14,7 @@ const marriages = await pb.collection("mariages").getFullList({
 export const partial = true;
 ---
 
-<div class="h-full w-[50vw]">
+<div class="h-full w-[50vw] pt-2 pr-2">
   <div class="bg-white shadow-lg rounded-lg p-4 relative">
     <button
       hx-get="/profile/partial"
@@ -23,80 +23,88 @@ export const partial = true;
     >
       <img src="/icons/cross.svg" alt="cross" class="w-4 h-4" />
     </button>
-<form
-method="put"
-action="/api/profile"
->
-  <div class="mb-4">
-    <label
-      class="block text-gray-700 text-sm font-bold mb-2"
-      for="name"
-    >
-      Nom
-    </label>
-    <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      id="name"
-      type="text"
-      placeholder="Nom"
-      value={profile.name}
-    />
-  </div>
-  <div class="mb-4">
-    <label
-      class="block text-gray-700 text-sm font-bold mb-2"
-      for="description-editor"
-    >
-      Description
-    </label>
-    <div id="description-editor" class="pell"></div>
-  </div>
-  <button
-    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    type="submit"
-  >
-    Modifier
-  </button>
-  {
-    !marriages.length ? (
+    <form method="put" action="/api/profile">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+          Nom
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="name"
+          type="text"
+          placeholder="Nom"
+          value={profile.name}
+        />
+      </div>
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="description-editor"
+        >
+          Description
+        </label>
+        <div id="description-editor" class="pell"></div>
+      </div>
       <button
-        hx-post={`/api/addMarriage?profileId=${profile.id}`}
-        hx-swap="none"
-        class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="submit"
       >
-        Ajouter mariage
+        Modifier
       </button>
-    ) : (
+      {
+        !marriages.length ? (
+          <button
+            hx-post={`/api/addMarriage?profileId=${profile.id}`}
+            hx-swap="none"
+            class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          >
+            Ajouter mariage
+          </button>
+        ) : (
+          <button
+            hx-post={`/api/addChild?marriageId=${marriages[0].id}`}
+            hx-swap="none"
+            class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          >
+            Ajouter enfant
+          </button>
+        )
+      }
       <button
-        hx-post={`/api/addChild?marriageId=${marriages[0].id}`}
-        hx-swap="none"
-        class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        hx-delete={`/api/profile?profileId=${profile.id}`}
+        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >
-        Ajouter enfant
+        Supprimer
       </button>
-    )
-  }
-  <button
-    hx-delete={`/api/profile?profileId=${profile.id}`}
-    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-    Supprimer
-  </button>
-</form>
+    </form>
   </div>
 </div>
 
-<script define:vars={{ id: profile.id, personName: profile.name, personDescription: profile.description }}>
+<script
+  define:vars={{
+    id: profile.id,
+    personName: profile.name,
+    personDescription: profile.description,
+  }}
+>
   document.title = personName;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
-  document.getElementById("node-" + id).scrollIntoView({ behavior: "smooth", inline: "center"});
+  document
+    .getElementById("node-" + id)
+    .scrollIntoView({ behavior: "smooth", inline: "center" });
   const editor = pell.init({
     element: document.getElementById("description-editor"),
     actions: [
-      "bold", "italic", "underline", "heading1", "heading2", "paragraph"
+      "bold",
+      "italic",
+      "underline",
+      "heading1",
+      "heading2",
+      "paragraph",
     ],
     onChange: (html) => {
       console.log(html);
     },
-  })
+  });
   editor.content.innerHTML = personDescription;
 </script>

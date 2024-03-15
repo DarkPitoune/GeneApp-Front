@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+  connected: boolean;
+}
+
+const { title, connected } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Le site de généalogie de la famille d'Hébrail"
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#0534a3" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/pell/dist/pell.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"></script>
+    <title>{title}</title>
+  </head>
+  <body class="overflow-x-clip bg-discreet-cream min-h-screen flex flex-col">
+    <nav
+      class="flex justify-between py-4 px-8 font-medium bg-white tracking-wide"
+    >
+      <div class="flex gap-10">
+        <div class="uppercase font-serif text-lg select-none">
+          La généalogie <span class="text-royal-blue">d'Hébrail</span>
+        </div>
+        {
+          connected && (
+            <>
+              <a
+                href="/"
+                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
+              >
+                Accueil
+              </a>
+              <a
+                href="/tree"
+                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
+              >
+                Arbre généalogique
+              </a>
+              <a
+                href="/listing"
+                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
+              >
+                Les articles
+              </a>
+              <a
+                href="/listing"
+                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
+              >
+                Les personnes
+              </a>
+            </>
+          )
+        }
+      </div>
+    </nav>
+    <main class="grow flex flex-col items-stretch"><slot /></main>
+    <script define:vars={{}} src="https://unpkg.com/pell"></script>
+  </body>
+</html>

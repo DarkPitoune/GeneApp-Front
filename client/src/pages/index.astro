@@ -1,13 +1,12 @@
 ---
-import Layout from "@layouts/ConnectedLayout.astro";
+import Layout from "@layouts/Layout.astro";
 
-const pb = Astro.locals.pb;
 const user = Astro.locals.pb.authStore.model;
 const capitalizedName =
   user.username.charAt(0).toUpperCase() + user.username.slice(1);
 ---
 
-<Layout title="Généalogie d'Hébrail">
+<Layout title="Généalogie d'Hébrail" connected={true}>
   <div class="grid grid-cols-3 welcome_screen">
     <div
       class="col-span-2 text-right flex flex-col justify-center items-end gap-4"

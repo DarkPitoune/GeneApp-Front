@@ -24,7 +24,7 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
   // send back the default 'pb_auth' cookie to the client with the latest store state
   if (!locals.pb.authStore.model && !request.url.includes("/login")) {
     response = new Response(null, { status: 302 });
-    response.headers.append("Location", "/login");
+    response.headers.append("Location", `/login?redirect=${request.url}`);
     return response;
   }
 
