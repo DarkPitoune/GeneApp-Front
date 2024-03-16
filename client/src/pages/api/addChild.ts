@@ -32,7 +32,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       .collection("parenthoods")
       .create(parenthoodData);
 
-    return new Response(JSON.stringify(parenthood), {
+    return new Response("Enfant ajouté !", {
       status: 201,
       headers: {
         Location: "/tree?profileId=" + record.id,

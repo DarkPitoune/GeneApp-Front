@@ -27,7 +27,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     };
     const marriage = await pb.collection("mariages").create(marriageData);
 
-    return new Response(JSON.stringify(marriage), {
+    return new Response("Mariage ajouté !", {
       status: 201,
       headers: {
         Location: "/tree?profileId=" + spouse.id,

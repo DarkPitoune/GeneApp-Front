@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "ES5",
-    "lib": ["ES5", "ES2015.Promise", "ES2015.core", "ES2017.Object"],
+    "lib": ["es2019", "ES2015.Promise", "ES2015.core", "ES2017.Object"],
     "paths": {
       "@lib/*": ["src/lib/*"],
       "@pages/*": ["src/pages/*"],
