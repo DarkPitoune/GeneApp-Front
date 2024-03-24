@@ -23,12 +23,13 @@ const profile: Profile | void = await pb
 <Layout title={profile ? profile.name : "Arbre généalogique"} connected={true}>
   <div class="flex justify-between relative">
     <div class="overflow-scroll p-6">
-      <div hx-trigger="load" hx-get={`/treenode/partial/${elder.id}`} hx-swap="outerHTML"></div>
+      <TreeNode profile={elder} />
     </div>
     <div
       id="profile-card"
       hx-get={`/profile/partial/${profile ? profileId : ""}`}
       hx-trigger="load"
+      hx-swap="innerHTML"
       class="absolute top-0 right-0"
     >
     </div>
