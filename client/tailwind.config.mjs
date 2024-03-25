@@ -7,6 +7,10 @@ export default {
         "royal-blue": "#0534a3",
         "discreet-cream": "#F8F6F1",
       },
+      fontFamily: {
+        serif: ["DM Serif Display", "serif"],
+        sans: ["Josefin Sans", "sans-serif"],
+      },
     },
   },
   plugins: [],

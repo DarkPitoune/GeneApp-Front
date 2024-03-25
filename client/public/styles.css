@@ -11,7 +11,7 @@ body {
 }
 
 .bg_discover_landscape {
-  background-image: url("https://wsrv.nl/?url=https://www.visitvar.fr/wp-content/uploads/2019/09/VAR1598-1920x641.jpg&w=1920&h=691&fit=cover&output=webp");
+  background-image: url('/images/familyBG.jpeg');
   background-size: cover;
   background-opacity: 0.5;
 }
