@@ -15,6 +15,14 @@ const marriages = await pb.collection("mariages").getFullList({
   filter: `husband = '${id}' || wife = '${id}'`,
   expand: "husband, wife",
 });
+
+const elder = await pb
+  .collection("profiles")
+  .getList<Profile>(1, 1, { sort: "birthDate" })
+  .then((res) => res.items[0]);
+
+const isElder = elder.id === id;
+
 export const partial = true;
 ---
 
@@ -99,12 +107,12 @@ export const partial = true;
         </button>
       )
     }
-    <button
+    {isElder && <button
       hx-post={`/api/addParents?profileId=${profile.id}`}
       class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
     >
       Ajouter parents
-    </button>
+    </button>}
     <button
       hx-delete={`/api/profile/${profile.id}`}
       class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
