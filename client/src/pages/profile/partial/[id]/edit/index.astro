@@ -16,12 +16,12 @@ const marriages = await pb.collection("mariages").getFullList({
   expand: "husband, wife",
 });
 
-const elder = await pb
+const elders = await pb
   .collection("profiles")
-  .getList<Profile>(1, 1, { sort: "birthDate" })
-  .then((res) => res.items[0]);
+  .getList<Profile>(1, 2, { sort: "birthDate" })
+  .then((res) => res.items);
 
-const isElder = elder.id === id;
+const isElder = elders.some((elder) => elder.id === id);
 
 export const partial = true;
 ---
@@ -70,6 +70,16 @@ export const partial = true;
           type="text"
           value={profile.birthDate}
         />
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="birth">
+          Date de mort <span class="text-gray-400 text-xs font-thin">(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span>
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="death"
+          name="deathDate"
+          type="text"
+          value={profile.deathDate}
+        />
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="sex">
@@ -113,12 +123,12 @@ export const partial = true;
     >
       Ajouter parents
     </button>}
-    <button
+    {!marriages && <button
       hx-delete={`/api/profile/${profile.id}`}
       class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
     >
       Supprimer
-    </button>
+    </button>}
   </div>
 </div>
 
@@ -133,7 +143,7 @@ export const partial = true;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
   document
     .getElementById("node-" + id)
-    .scrollIntoView({ behavior: "smooth", inline: "center" });
+    .scrollIntoView({ behavior: "smooth", inline: "center", block: "center"});
 
   const hiddenInput = document.querySelector("input[name=description]");
   const editor = pell.init({

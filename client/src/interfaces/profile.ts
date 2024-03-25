@@ -3,5 +3,7 @@ export interface Profile {
   sex: "M" | "F";
   name: string;
   birthDate: string;
+  deathDate?: string;
+  notes?: string;
   description: string;
 }

@@ -13,8 +13,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // First create the spouse profile
     const spouseData = {
-      name: "Conjoint de " + profile.name,
-      description: "Le conjoint de " + profile.name,
+      name: "Conjoint",
+      description: "",
       sex: profile.sex === "M" ? "F" : "M",
       birthDate: profile.birthDate,
     };

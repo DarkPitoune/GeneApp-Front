@@ -16,8 +16,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (!marriage) return new Response("Marriage not found", { status: 404 });
 
     const childData: Omit<Profile, "id"> = {
-      name: marriage.expand.husband.name + " " + marriage.expand.wife.name,
-      description: "Enfant",
+      name: "Enfant",
+      description: "",
       sex: "M",
       birthDate: "2000-01-01",
     };

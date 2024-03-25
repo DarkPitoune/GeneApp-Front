@@ -20,13 +20,12 @@ export const partial = true;
     >
       <img src="/icons/cross.svg" alt="cross" class="w-4 h-4" />
     </button>
-    <h1 class="text-5xl text-center font-serif">{profile.name}</h1>
+    <div>
+      <h1 class="text-5xl text-center font-serif">{profile.name}</h1>
+      <div class="text-center text-sm text-gray-500">{profile.birthDate}{profile.deathDate && ` - ${profile.deathDate}`}</div>
+    </div>
     <hr class="border-royal-blue border-t-2">
     <div set:html={profile.description} />
-    <div class="flex flex-col gap-2">
-      <span class="font-semibold">Date de naissance:</span>
-      <span>{profile.birthDate}</span>
-    </div>
     {
       isAdmin && (
         <button
@@ -45,5 +44,5 @@ export const partial = true;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
   document
     .getElementById("node-" + id)
-    .scrollIntoView({ behavior: "smooth", inline: "center" });
+    .scrollIntoView({ behavior: "smooth", inline: "center", block: "center"});
 </script>
