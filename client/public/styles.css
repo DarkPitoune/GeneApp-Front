@@ -10,6 +10,10 @@ body {
   height: calc(100vh - 64px - 16px);
 }
 
+.tree_wrapper {
+  height: calc(100vh - 64px);
+}
+
 .bg_discover_landscape {
   background-image: url('/images/familyBG.jpeg');
   background-size: cover;

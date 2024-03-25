@@ -21,7 +21,7 @@ const profile: Profile | void = await pb
 ---
 
 <Layout title={profile ? profile.name : "Arbre généalogique"} connected={true}>
-  <div class="flex justify-between relative">
+  <div class="flex justify-between relative tree_wrapper">
     <div class="overflow-scroll p-6">
       <TreeNode profile={elder} />
     </div>

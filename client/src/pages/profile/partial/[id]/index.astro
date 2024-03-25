@@ -12,7 +12,7 @@ export const partial = true;
 ---
 
 <div class="h-full w-[35rem] max-w-[100vw] pt-2 px-2">
-  <div class="bg-white shadow-lg rounded-lg p-4 relative">
+  <div class="bg-white shadow-lg rounded-2xl p-6 relative flex flex-col gap-6">
     <button
       hx-get="/profile/partial"
       hx-target="#profile-card"
@@ -20,14 +20,19 @@ export const partial = true;
     >
       <img src="/icons/cross.svg" alt="cross" class="w-4 h-4" />
     </button>
-    <h1 class="text-xl font-bold">{profile.name}</h1>
+    <h1 class="text-5xl text-center font-serif">{profile.name}</h1>
+    <hr class="border-royal-blue border-t-2">
     <div set:html={profile.description} />
+    <div class="flex flex-col gap-2">
+      <span class="font-semibold">Date de naissance:</span>
+      <span>{profile.birthDate}</span>
+    </div>
     {
       isAdmin && (
         <button
           hx-get={`/profile/partial/${profile.id}/edit`}
           hx-target="#profile-card"
-          class="bg-blue-500 text-white px-2 py-1 rounded-md mt-2"
+          class="bg-blue-500 text-white px-2 py-1 rounded-md mt-2 hover:bg-blue-800 focus:bg-blue-800 transition"
         >
           Modifier
         </button>
