@@ -29,8 +29,29 @@ const profile: Profile | void = await pb
       id="profile-card"
       hx-get={`/profile/partial/${profile ? profileId : ""}`}
       hx-trigger="load"
+      hx-swap="innerHTML"
       class="absolute top-0 right-0"
     >
     </div>
   </div>
+  <style is:global>
+  .tree-node::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-left: 1px solid #000000;
+  }
+  .tree-node:first-child::before {
+    height: 50%;
+    top: 50%;
+  }
+  .tree-node:last-child::before {
+    height: 50%;
+  }
+  .tree-node:first-child:last-child::before {
+    height: 0;
+  }
+</style>
 </Layout>

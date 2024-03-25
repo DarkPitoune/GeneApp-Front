@@ -31,6 +31,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       status: 201,
       headers: {
         Location: "/tree?profileId=" + spouse.id,
+        "HX-Trigger": `tree-refresh-${profile.id}`,
       },
     });
   } catch (e) {

@@ -1,0 +1,12 @@
+---
+import TreeNode from "@components/treeNode.astro";
+import { Profile } from "@interfaces/profile";
+
+const pb = Astro.locals.pb;
+const { id } = Astro.params;
+
+const profile = await pb.collection("profiles").getOne<Profile>(id);
+
+export const partial = true;
+---
+<TreeNode profile={profile} />

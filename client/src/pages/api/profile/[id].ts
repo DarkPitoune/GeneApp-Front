@@ -39,7 +39,12 @@ export const PUT: APIRoute = async ({ request, locals }) => {
     return new Response("Incomplete data", { status: 400 });
 
   const record = await pb.collection("profiles").update(profileId, data);
-  const response = new Response(null, { status: 302 });
-  response.headers.append("Location", `/profile/partial/${record.id}`);
+  const response = new Response(null, {
+    status: 200,
+    headers: {
+      Location: `/profile/partial/${record.id}`,
+      "HX-Trigger": `tree-refresh-${profileId}`,
+    },
+  });
   return response;
 };
