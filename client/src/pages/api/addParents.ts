@@ -32,6 +32,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       description: `Le père de ${profile.name}`,
       sex: "M",
       birthDate: birthDateString,
+      labels: ["lineagedhebrail"],
     };
     const father = await pb.collection("profiles").create(fatherData);
     // Then create a mother profile

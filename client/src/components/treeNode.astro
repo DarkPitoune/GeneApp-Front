@@ -17,7 +17,7 @@ const mariages = await pb.collection("mariages").getFullList({
 let husband: Profile;
 let wife: Profile;
 let parenthood: Parenthood[] = [];
-const lignageIsHusband = profile.sex === "M";
+const lineageIsHusband = profile.sex === "M";
 
 if (mariages.length > 0) {
   parenthood = await pb.collection("parenthoods").getFullList({
@@ -31,6 +31,9 @@ if (mariages.length > 0) {
   husband = profile.sex === "M" ? profile : null;
   wife = profile.sex === "F" ? profile : null;
 }
+
+const comte = husband?.labels.some((label) => label === "lineagedhebrail");
+
 ---
 
 <div
@@ -50,7 +53,8 @@ if (mariages.length > 0) {
           hx-swap="innerHTML"
           class:list={[
             "w-32 bg-blue-100 p-2 block whitespace-nowrap overflow-clip hover:whitespace-normal",
-            lignageIsHusband && "border border-black rounded-lg",
+            lineageIsHusband && "border border-black rounded-lg",
+            comte && "border-royal-blue border-2",
           ]}
         >
           {husband.name}
@@ -66,7 +70,7 @@ if (mariages.length > 0) {
           hx-swap="innerHTML"
           class:list={[
             "w-32 p-2 bg-pink-100 block whitespace-nowrap overflow-clip hover:whitespace-normal",
-            !lignageIsHusband && "border border-black rounded-lg",
+            !lineageIsHusband && "border border-black rounded-lg"
           ]}
         >
           {wife.name}

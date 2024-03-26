@@ -6,4 +6,5 @@ export interface Profile {
   deathDate?: string;
   notes?: string;
   description: string;
+  labels?: string[];
 }
