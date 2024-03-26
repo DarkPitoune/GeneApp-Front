@@ -21,14 +21,6 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
     locals.pb.authStore.clear();
   }
 
-  console.log("Auth store state:", locals.pb.authStore.model);
-  if (!locals.pb.authStore.model.verified) {
-    return new Response(null, {
-      status: 302,
-      headers: { Location: "/waitlist" },
-    });
-  }
-
   let response: Response;
 
   // send back the default 'pb_auth' cookie to the client with the latest store state
@@ -36,8 +28,18 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
     response = new Response(null, { status: 302 });
     const url = new URL(request.url);
     const path = url.pathname + url.search;
-    response.headers.append("Location", `/login?redirect=${path}`);
+    if (path !== "/")
+      response.headers.append("Location", `/login?redirect=${path}`);
+    else response.headers.append("Location", "/login");
     return response;
+  }
+
+  console.log("Auth store state:", locals.pb.authStore.model);
+  if (!locals.pb.authStore.model.verified) {
+    return new Response(null, {
+      status: 302,
+      headers: { Location: "/waitlist" },
+    });
   }
 
   response = await next();

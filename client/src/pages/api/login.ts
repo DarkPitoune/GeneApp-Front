@@ -9,14 +9,28 @@ export const POST: APIRoute = async ({ request }) => {
     const params = new URLSearchParams(body);
     const email = params.get("email");
     const password = params.get("password");
-    await pb.collection("users").authWithPassword(email, password);
+    return pb
+      .collection("users")
+      .authWithPassword(email, password)
+      .then(() => {
+        const cookie = pb.authStore.exportToCookie();
 
-    const cookie = pb.authStore.exportToCookie();
-
-    const response = new Response(null, { status: 302 });
-    response.headers.append("set-cookie", cookie);
-    response.headers.append("Location", redirect);
-    return response;
+        return new Response(null, {
+          status: 302,
+          headers: {
+            "set-cookie": cookie,
+            Location: redirect,
+          },
+        });
+      })
+      .catch((e) => {
+        return new Response(null, {
+          status: 302,
+          headers: {
+            Location: `/login?error=true&redirect=${redirect}`,
+          },
+        });
+      });
   } catch (e) {
     return new Response(e.message, { status: 500 });
   }
