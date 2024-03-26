@@ -11,8 +11,8 @@ const profile = await pb.collection("profiles").getOne<Profile>(id);
 export const partial = true;
 ---
 
-<div class="h-full w-[35rem] max-w-[100vw] pt-2 px-2">
-  <div class="bg-white shadow-lg rounded-2xl p-6 relative flex flex-col gap-6">
+<div class="h-full w-[35rem] max-w-[100vw] py-2 px-2 flex">
+  <div class="bg-white shadow-lg rounded-2xl p-6 relative flex flex-col gap-6 grow min-h-0">
     <button
       hx-get="/profile/partial"
       hx-target="#profile-card"
@@ -25,7 +25,7 @@ export const partial = true;
       <div class="text-center text-sm text-gray-500">{profile.birthDate}{profile.deathDate && ` - ${profile.deathDate}`}</div>
     </div>
     <hr class="border-royal-blue border-t-2">
-    <div set:html={profile.description} />
+    <div class="grow min-h-0 overflow-auto" set:html={profile.description} />
     {
       isAdmin && (
         <button
