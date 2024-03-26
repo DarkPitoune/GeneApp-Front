@@ -10,7 +10,7 @@ const redirect = Astro.url.searchParams.get("redirect")! || "";
     action=`/api/login?redirect=${redirect}`
     class="flex flex-col justify-center grow gap-12 items-center"
   >
-    <div class="text-4xl font-bold font-serif text-center">Connexion</div>
+    <div class="text-5xl font-serif text-center">Connexion</div>
     <div class="w-96 flex flex-col gap-6">
       <input
         class="appearance-none border rounded-xl py-3 px-6 w-full text-gray-700 leading-tight focus:outline-none focus:outline-royal-blue"
@@ -30,7 +30,7 @@ const redirect = Astro.url.searchParams.get("redirect")! || "";
       />
       <div class="flex items-center justify-center">
         <button
-          class="bg-black hover:bg-gray-700 focus:bg-gray-700 text-white font-bold py-2 px-4 w-full rounded-full focus:outline-none transition"
+          class="hover:bg-gray-700 focus:bg-gray-700 py-2 px-4 w-full rounded-full focus:outline-none transition"
           type="submit"
         >
           Continuer
@@ -38,4 +38,27 @@ const redirect = Astro.url.searchParams.get("redirect")! || "";
       </div>
     </div>
   </form>
+  <script is:inline>
+    function enableButtonIfFilled() {
+      const email = document.querySelector("form input#email");
+      const password = document.querySelector("form input#password");
+      const button = document.querySelector("form button");
+      button.disabled = !email.value || !password.value;
+    }
+
+    document.querySelector("form").addEventListener("input", enableButtonIfFilled);
+
+    enableButtonIfFilled();
+  </script>
+
+  <style>
+    button:disabled {
+      background-color: #e1ded9;
+      color: #a7a39a;
+    }
+    button {
+      background-color: black;
+      color: white;
+    }
+  </style>
 </Layout>

@@ -2,8 +2,10 @@ import PocketBase from "pocketbase";
 
 import { defineMiddleware } from "astro/middleware";
 
+const unauthenticatedPaths = ["/login", "/logout", "/signin", "/waitlist"];
+
 export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
-  if (request.url.includes("/login") || request.url.includes("/logout"))
+  if (unauthenticatedPaths.some((path) => request.url.includes(path)))
     return await next();
   locals.pb = new PocketBase("https://api.genealogie.dhebrail.fr");
   locals.pb.autoCancellation(false);
@@ -17,6 +19,14 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
   } catch (_) {
     // clear the auth store on failed refresh
     locals.pb.authStore.clear();
+  }
+
+  console.log("Auth store state:", locals.pb.authStore.model);
+  if (!locals.pb.authStore.model.verified) {
+    return new Response(null, {
+      status: 302,
+      headers: { Location: "/waitlist" },
+    });
   }
 
   let response: Response;

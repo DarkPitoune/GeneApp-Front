@@ -46,7 +46,7 @@ const { title, connected } = Astro.props;
       class="flex justify-between py-4 px-8 font-medium bg-white tracking-wide"
     >
       <div class="flex gap-10">
-        <div class="uppercase font-serif text-lg select-none">
+        <div class="uppercase font-serif text-2xl select-none">
           La généalogie <span class="text-royal-blue">d'Hébrail</span>
         </div>
         {
@@ -82,6 +82,6 @@ const { title, connected } = Astro.props;
       </div>
     </nav>
     <main class="grow flex flex-col items-stretch"><slot /></main>
-    <script define:vars={{}} src="https://unpkg.com/pell"></script>
+    <script is:inline src="https://unpkg.com/pell"></script>
   </body>
 </html>
