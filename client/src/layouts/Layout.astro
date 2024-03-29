@@ -24,9 +24,12 @@ const { title, connected } = Astro.props;
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#0534a3" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
     <meta name="generator" content={Astro.generator} />
     <link
       rel="stylesheet"
@@ -45,13 +48,13 @@ const { title, connected } = Astro.props;
     <nav
       class="flex justify-between py-4 px-8 font-medium bg-white tracking-wide"
     >
-      <div class="flex gap-10">
+      <div class="flex gap-10 items-center">
         <div class="uppercase font-serif text-2xl select-none">
           La généalogie <span class="text-royal-blue">d'Hébrail</span>
         </div>
         {
           connected && (
-            <>
+            <div class="gap-8 hidden md:flex">
               <a
                 href="/"
                 class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
@@ -76,12 +79,58 @@ const { title, connected } = Astro.props;
               >
                 Les personnes
               </a>
-            </>
+            </div>
           )
         }
       </div>
+      <button
+        x-data="{ menuOpen : true }"
+        x-on:click="menuOpen = !menuOpen"
+        class="flex flex-col gap-2 md:hidden"
+      >
+        <div
+          class="w-8 h-1 rounded bg-black transition"
+          x-bind:class="{'translate-y-3 rotate-45' : !menuOpen}"
+        >
+        </div>
+        <div
+          class="w-8 h-1 rounded bg-black transition"
+          x-bind:class="{'opacity-0' : !menuOpen}"
+        >
+        </div>
+        <div
+          class="w-8 h-1 rounded bg-black transition"
+          x-bind:class="{'-translate-y-3 -rotate-45' : !menuOpen}"
+        >
+        </div>
+      </button>
     </nav>
-    <main class="grow flex flex-col items-stretch"><slot /></main>
+    <main hx-indicator="#spinner" class="grow flex flex-col items-stretch">
+      <slot />
+    </main>
+    <div
+      id="spinner"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 htmx-indicator p-4 rounded-lg shadow-lg bg-white"
+    >
+      <div
+        class="rounded-full border-4 border-gray-100 border-t-royal-blue animate-spin h-8 w-8"
+      >
+      </div>
+    </div>
     <script is:inline src="https://unpkg.com/pell"></script>
   </body>
 </html>
+
+<style>
+  #spinner {
+    display: none;
+    opacity: 0;
+    transition: opacity 100ms ease-in;
+    transition-delay: 400ms;
+  }
+
+  .htmx-request#spinner {
+    display: block;
+    opacity: 1;
+  }
+</style>

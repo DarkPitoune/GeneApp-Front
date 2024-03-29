@@ -35,23 +35,23 @@ const profile: Profile | void = await pb
     </div>
   </div>
   <style is:global>
-  .tree-node::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    border-left: 1px solid #000000;
-  }
-  .tree-node:first-child::before {
-    height: 50%;
-    top: 50%;
-  }
-  .tree-node:last-child::before {
-    height: 50%;
-  }
-  .tree-node:first-child:last-child::before {
-    height: 0;
-  }
-</style>
+    .tree-node::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-left: 1px solid #000000;
+    }
+    .tree-node:first-child::before {
+      height: 50%;
+      top: 50%;
+    }
+    .tree-node:last-child::before {
+      height: 50%;
+    }
+    .tree-node:first-child:last-child::before {
+      height: 0;
+    }
+  </style>
 </Layout>

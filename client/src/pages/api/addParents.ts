@@ -3,7 +3,6 @@ import { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    // return new Response("Pas encore implémenté !", { status: 200 });
     const pb = locals.pb;
 
     const params = new URLSearchParams(request.url.split("?")[1] || "");

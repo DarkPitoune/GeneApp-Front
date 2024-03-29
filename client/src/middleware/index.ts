@@ -34,7 +34,6 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
     return response;
   }
 
-  console.log("Auth store state:", locals.pb.authStore.model);
   if (!locals.pb.authStore.model.verified) {
     return new Response(null, {
       status: 302,

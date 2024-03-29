@@ -33,7 +33,6 @@ if (mariages.length > 0) {
 }
 
 const comte = husband?.labels.some((label) => label === "lineagedhebrail");
-
 ---
 
 <div
@@ -41,7 +40,8 @@ const comte = husband?.labels.some((label) => label === "lineagedhebrail");
   class="tree-node relative flex items-center"
   hx-swap="outerHTML"
   hx-trigger={`tree-refresh-${profile.id} from:body`}
-  hx-get={`/treenode/partial/${profile.id}`}>
+  hx-get={`/treenode/partial/${profile.id}`}
+>
   <div class="border-black border-b w-8"></div>
   <div class="py-1">
     {
@@ -70,7 +70,7 @@ const comte = husband?.labels.some((label) => label === "lineagedhebrail");
           hx-swap="innerHTML"
           class:list={[
             "w-32 p-2 bg-pink-100 block whitespace-nowrap overflow-clip hover:whitespace-normal",
-            !lineageIsHusband && "border border-black rounded-lg"
+            !lineageIsHusband && "border border-black rounded-lg",
           ]}
         >
           {wife.name}
