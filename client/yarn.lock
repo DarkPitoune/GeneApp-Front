@@ -950,6 +950,11 @@ array-iterate@^2.0.0:
   resolved "https://registry.yarnpkg.com/array-iterate/-/array-iterate-2.0.1.tgz#6efd43f8295b3fee06251d3d62ead4bd9805dd24"
   integrity sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==
 
+astro-htmx@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/astro-htmx/-/astro-htmx-1.0.5.tgz#dcce60eff7ad9798c1fd08fe1063ebf8b71d6e2b"
+  integrity sha512-lTwGy5sMyvp6+O6UiSQEXrEWimRpPi16mMBbQTWUshWrGklCpYbtho6eaZVonFcB9ue7Y7FjTTPiYfp0hUUEuQ==
+
 astro@^4.1.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/astro/-/astro-4.3.1.tgz#f9c3813d6cd0d64c1688a13e509623362c02523e"
@@ -1947,6 +1952,11 @@ html-void-elements@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/html-void-elements/-/html-void-elements-3.0.0.tgz#fc9dbd84af9e747249034d4d62602def6517f1d7"
   integrity sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==
+
+htmx.org@^1.9.11:
+  version "1.9.11"
+  resolved "https://registry.yarnpkg.com/htmx.org/-/htmx.org-1.9.11.tgz#00192041ee682d6ca7146d0fbd901169ffe72d87"
+  integrity sha512-WlVuICn8dfNOOgYmdYzYG8zSnP3++AdHkMHooQAzGZObWpVXYathpz/I37ycF4zikR6YduzfCvEcxk20JkIUsw==
 
 http-cache-semantics@^4.1.1:
   version "4.1.1"
