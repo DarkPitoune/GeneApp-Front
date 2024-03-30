@@ -57,8 +57,8 @@ const links = [
   </button>
   <div
     id="mobileMenu"
-    class="absolute top-16 w-full left-0 transition-all overflow-clip flex flex-col justify-between md:hidden bg-white max-h-fit"
-    x-bind:class="menuOpen ? 'h-52 p-4 shadow-lg' : 'h-0 p-0'"
+    class="absolute top-16 w-full left-0 transition-all overflow-clip flex flex-col justify-between md:hidden bg-white max-h-fit h-0"
+    x-bind:class="menuOpen ? '!h-52 p-4 shadow-lg' : 'p-0'"
   >
     {
       links.map(({ label, href }) => (
