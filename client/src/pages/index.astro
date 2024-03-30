@@ -2,44 +2,45 @@
 import Layout from "@layouts/Layout.astro";
 
 const user = Astro.locals.pb.authStore.model;
-const capitalizedName =
-  user.name.charAt(0).toUpperCase() + user.name.slice(1);
+const capitalizedName = user.name.charAt(0).toUpperCase() + user.name.slice(1);
 ---
 
 <Layout title="Généalogie d'Hébrail" connected={true}>
   <div class="grid grid-cols-3 welcome_screen">
     <div
-      class="col-span-2 text-right flex flex-col justify-center items-end gap-4"
+      class="p-4 col-span-3 md:col-span-2 text-center md:text-right flex flex-col justify-center items-stretch md:items-end gap-4"
     >
       <div class="flex flex-col z-10">
-        <h1 class="text-5xl font-serif font-medium">
+        <h1 class="text-4xl md:text-5xl font-serif font-medium">
           Bonjour <span class="text-royal-blue">{capitalizedName}</span> !
         </h1>
         <div class="font-medium">Qu'allez vous découvrir aujourd'hui ?</div>
       </div>
-      <div class="flex gap-4 w-1/2 py-3 px-6 rounded-full bg-white">
+      <div class="flex gap-4 md:w-1/2 py-3 px-6 rounded-full bg-white">
         <img src="/icons/search.svg" alt="Rechercher" class="w-6 h-6" />
         <input
           type="search"
           id="globalSearch"
           placeholder="Rechercher une personne ou un article"
-          class="grow focus:outline-none"
+          class="grow focus:outline-none text-sm md:text-base"
         />
       </div>
     </div>
     <img
       src="/images/bigBlason.png"
       alt="Blason d'Hébrail"
-      class="h-[98vh] absolute right-0 top-1 translate-x-1/4"
+      class="h-[98vh] absolute right-0 top-1 translate-x-1/4 md:block hidden"
     />
   </div>
-  <div class="bg_discover_landscape h-screen rounded-b-2xl">
+  <div class="bg_discover_landscape h-screen rounded-b-2xl flex flex-col">
     <div class="bg-discreet-cream h-4 rounded-b-2xl"></div>
-    <div class="flex flex-col items-center p-48 gap-8 justify-around">
+    <div
+      class="flex flex-col items-center backdrop-blur-md gap-8 justify-center grow min-h-0 p-4"
+    >
       <div class="text-4xl font-serif font-semibold text-center">
         Découvrez l'Histoire
       </div>
-      <div class="max-w-3xl text-lg font-medium text-center">
+      <div class="max-w-2xl md:text-lg font-medium text-center">
         Depuis plus de 1000 ans, la famille d'Hébrail se construit et
         s'agrandit. Nous avons regroupé pour vous tous ces noms et histoires et
         avons reconstitué son <span class="text-royal-blue"
@@ -48,7 +49,7 @@ const capitalizedName =
       </div>
       <a
         href="/tree"
-        class="uppercase text-lg bg-black text-white hover:bg-gray-800 transition px-12 py-2 rounded-full"
+        class="uppercase text-sm md:text-lg bg-black text-white hover:bg-gray-800 transition px-12 py-2 rounded-full"
       >
         Voir l'arbre généalogique
       </a>
