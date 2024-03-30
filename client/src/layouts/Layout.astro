@@ -1,4 +1,6 @@
 ---
+import NavBar from "@components/navBar.astro";
+
 interface Props {
   title: string;
   connected: boolean;
@@ -44,68 +46,16 @@ const { title, connected } = Astro.props;
       crossorigin="anonymous"></script>
     <title>{title}</title>
   </head>
-  <body class="overflow-x-clip bg-discreet-cream min-h-screen flex flex-col">
-    <nav
-      class="flex justify-between py-4 px-8 font-medium bg-white tracking-wide"
+  <body
+    class="overflow-x-clip bg-discreet-cream min-h-screen flex flex-col"
+    x-data="{ menuOpen : false }"
+  >
+    <NavBar connected={connected} />
+    <main
+      hx-indicator="#spinner"
+      class="grow flex flex-col items-stretch"
+      x-on:touchstart="menuOpen = false"
     >
-      <div class="flex gap-10 items-center">
-        <div class="uppercase font-serif text-2xl select-none">
-          La généalogie <span class="text-royal-blue">d'Hébrail</span>
-        </div>
-        {
-          connected && (
-            <div class="gap-8 hidden md:flex">
-              <a
-                href="/"
-                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
-              >
-                Accueil
-              </a>
-              <a
-                href="/tree"
-                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
-              >
-                Arbre généalogique
-              </a>
-              <a
-                href="/listing"
-                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
-              >
-                Les articles
-              </a>
-              <a
-                href="/listing"
-                class="uppercase hover:bg-gray-100 transition px-4 py-1 rounded focus:outline-none focus:bg-gray-200"
-              >
-                Les personnes
-              </a>
-            </div>
-          )
-        }
-      </div>
-      <button
-        x-data="{ menuOpen : true }"
-        x-on:click="menuOpen = !menuOpen"
-        class="flex flex-col gap-2 md:hidden"
-      >
-        <div
-          class="w-8 h-1 rounded bg-black transition"
-          x-bind:class="{'translate-y-3 rotate-45' : !menuOpen}"
-        >
-        </div>
-        <div
-          class="w-8 h-1 rounded bg-black transition"
-          x-bind:class="{'opacity-0' : !menuOpen}"
-        >
-        </div>
-        <div
-          class="w-8 h-1 rounded bg-black transition"
-          x-bind:class="{'-translate-y-3 -rotate-45' : !menuOpen}"
-        >
-        </div>
-      </button>
-    </nav>
-    <main hx-indicator="#spinner" class="grow flex flex-col items-stretch">
       <slot />
     </main>
     <div

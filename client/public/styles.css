@@ -17,7 +17,6 @@ body {
 .bg_discover_landscape {
   background-image: url('/images/familyBG.jpeg');
   background-size: cover;
-  background-opacity: 0.5;
 }
 
 @media (max-width: 760px) {
