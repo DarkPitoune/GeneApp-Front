@@ -12,7 +12,9 @@ export const partial = true;
 ---
 
 <div class="h-full w-[35rem] max-w-[100vw] py-2 px-2 flex">
-  <div class="bg-white shadow-lg rounded-2xl p-6 relative flex flex-col gap-6 grow min-h-0">
+  <div
+    class="bg-white shadow-lg rounded-2xl p-6 relative flex flex-col gap-6 grow min-h-0"
+  >
     <button
       hx-get="/profile/partial"
       hx-target="#profile-card"
@@ -22,9 +24,11 @@ export const partial = true;
     </button>
     <div>
       <h1 class="text-5xl text-center font-serif">{profile.name}</h1>
-      <div class="text-center text-sm text-gray-500">{profile.birthDate}{profile.deathDate && ` - ${profile.deathDate}`}</div>
+      <div class="text-center text-sm text-gray-500">
+        {profile.birthDate}{profile.deathDate && ` - ${profile.deathDate}`}
+      </div>
     </div>
-    <hr class="border-royal-blue border-t-2">
+    <hr class="border-royal-blue border-t-2" />
     <div class="grow min-h-0 overflow-auto" set:html={profile.description} />
     {
       isAdmin && (
@@ -39,10 +43,10 @@ export const partial = true;
     }
   </div>
 </div>
-<script define:vars={{ id: profile.id, personName: profile.name }}>
+<script is:inline define:vars={{ id: profile.id, personName: profile.name }}>
   document.title = personName;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
   document
     .getElementById("node-" + id)
-    .scrollIntoView({ behavior: "smooth", inline: "center", block: "center"});
+    .scrollIntoView({ behavior: "smooth", inline: "center", block: "center" });
 </script>

@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
       passwordConfirm,
     });
 
-    const response = new Response(null, { status: 201 });
+    const response = new Response(null, { status: 302 });
     response.headers.append("Location", "/waitlist");
     return response;
   } catch (e) {

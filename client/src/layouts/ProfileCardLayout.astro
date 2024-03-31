@@ -5,7 +5,7 @@ interface Props {
   profile: Profile;
 }
 
-const {profile} = Astro.props;
+const { profile } = Astro.props;
 
 const partial = true;
 ---
@@ -15,7 +15,7 @@ const partial = true;
     <slot />
   </div>
 </div>
-<script define:vars={{ id: profile.id, personName: profile.name }}>
+<script is:inline define:vars={{ id: profile.id, personName: profile.name }}>
   document.title = personName;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
 </script>

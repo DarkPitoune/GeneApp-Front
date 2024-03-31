@@ -1,15 +1,19 @@
 ---
 import Layout from "@layouts/Layout.astro";
-
 ---
 
 <Layout title="Inscription" connected={false}>
   <form
     method="post"
     action="/api/signin"
-    class="flex flex-col justify-center grow gap-12 items-center"
+    class="flex flex-col justify-center grow gap-8 items-center"
   >
     <div class="text-5xl font-serif text-center">S'inscrire</div>
+    <div class="italic">
+      Déjà inscrit ? <a href="/login" class="underline hover:no-underline"
+        >Se connecter</a
+      >
+    </div>
     <div class="w-96 flex flex-col gap-6">
       <input
         class="appearance-none border rounded-xl py-3 px-6 w-full text-gray-700 leading-tight focus:outline-none focus:outline-royal-blue"
@@ -58,12 +62,23 @@ import Layout from "@layouts/Layout.astro";
       const name = document.querySelector("form input#name");
       const email = document.querySelector("form input#email");
       const password = document.querySelector("form input#password");
-      const passwordConfirm = document.querySelector("form input#passwordConfirm");
+      const passwordConfirm = document.querySelector(
+        "form input#passwordConfirm"
+      );
       const button = document.querySelector("form button");
-      button.disabled = !email.value || !password.value || !passwordConfirm.value || !name.value || password.value !== passwordConfirm.value || password.value.length < 8 || password.value.length > 72;
+      button.disabled =
+        !email.value ||
+        !password.value ||
+        !passwordConfirm.value ||
+        !name.value ||
+        password.value !== passwordConfirm.value ||
+        password.value.length < 8 ||
+        password.value.length > 72;
     }
 
-    document.querySelector("form").addEventListener("input", enableButtonIfFilled);
+    document
+      .querySelector("form")
+      .addEventListener("input", enableButtonIfFilled);
 
     enableButtonIfFilled();
   </script>

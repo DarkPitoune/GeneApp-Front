@@ -61,7 +61,9 @@ export const partial = true;
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="birth">
-          Date de naissance <span class="text-gray-400 text-xs font-thin">(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span>
+          Date de naissance <span class="text-gray-400 text-xs font-thin"
+            >(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span
+          >
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -71,7 +73,9 @@ export const partial = true;
           value={profile.birthDate}
         />
         <label class="block text-gray-700 text-sm font-bold mb-2" for="birth">
-          Date de mort <span class="text-gray-400 text-xs font-thin">(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span>
+          Date de mort <span class="text-gray-400 text-xs font-thin"
+            >(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span
+          >
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -117,22 +121,32 @@ export const partial = true;
         </button>
       )
     }
-    {isElder && <button
-      hx-post={`/api/addParents?profileId=${profile.id}`}
-      class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-    >
-      Ajouter parents
-    </button>}
-    {!marriages && <button
-      hx-delete={`/api/profile/${profile.id}`}
-      class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    >
-      Supprimer
-    </button>}
+    {
+      isElder && (
+        <button
+          hx-post={`/api/addParents?profileId=${profile.id}`}
+          class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        >
+          Ajouter parents
+        </button>
+      )
+    }
+    {
+      !marriages && (
+        <button
+          hx-delete={`/api/profile/${profile.id}`}
+          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Supprimer
+        </button>
+      )
+    }
   </div>
 </div>
 
+<script is:inline src="https://unpkg.com/pell"></script>
 <script
+  is:inline
   define:vars={{
     id: profile.id,
     personName: profile.name,
@@ -143,7 +157,7 @@ export const partial = true;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
   document
     .getElementById("node-" + id)
-    .scrollIntoView({ behavior: "smooth", inline: "center", block: "center"});
+    .scrollIntoView({ behavior: "smooth", inline: "center", block: "center" });
 
   const hiddenInput = document.querySelector("input[name=description]");
   const editor = pell.init({
@@ -156,9 +170,13 @@ export const partial = true;
       "heading2",
       "paragraph",
     ],
-    onChange: (html) => {
-      hiddenInput.value = html;
-    },
+    onChange: (html) => (hiddenInput.value = html),
   });
   editor.content.innerHTML = personDescription;
 </script>
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://unpkg.com/pell/dist/pell.min.css"
+/>
