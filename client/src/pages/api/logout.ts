@@ -1,8 +1,8 @@
 import { APIRoute } from "astro";
-import pb from "@lib/pb";
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ locals }) => {
   try {
+    const pb = locals.pb;
     pb.authStore.clear();
     const cookie = pb.authStore.exportToCookie();
 
