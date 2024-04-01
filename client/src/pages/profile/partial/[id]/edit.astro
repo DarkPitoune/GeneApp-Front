@@ -144,7 +144,6 @@ export const partial = true;
   </div>
 </div>
 
-<script is:inline src="https://unpkg.com/pell"></script>
 <script
   is:inline
   define:vars={{
@@ -160,19 +159,21 @@ export const partial = true;
     .scrollIntoView({ behavior: "smooth", inline: "center", block: "center" });
 
   const hiddenInput = document.querySelector("input[name=description]");
-  const editor = pell.init({
-    element: document.getElementById("description-editor"),
-    actions: [
-      "bold",
-      "italic",
-      "underline",
-      "heading1",
-      "heading2",
-      "paragraph",
-    ],
-    onChange: (html) => (hiddenInput.value = html),
-  });
-  editor.content.innerHTML = personDescription;
+  function createEditor() {
+    const editor = pell.init({
+      element: document.getElementById("description-editor"),
+      actions: ["bold", "italic", "heading1", "heading2", "paragraph"],
+      onChange: (html) => (hiddenInput.value = html),
+    });
+    editor.content.innerHTML = personDescription;
+  }
+
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = true;
+  script.src = "https://unpkg.com/pell";
+  document.body.appendChild(script);
+  script.addEventListener("load", createEditor);
 </script>
 
 <link
