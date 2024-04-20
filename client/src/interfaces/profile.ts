@@ -7,5 +7,5 @@ export interface Profile {
   notes?: string;
   description: string;
   labels?: string[];
-  photos: string[];
+  photos?: string[];
 }
