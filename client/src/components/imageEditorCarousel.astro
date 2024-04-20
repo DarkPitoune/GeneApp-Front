@@ -1,0 +1,38 @@
+---
+import { Profile } from "@interfaces/profile";
+
+const pb = Astro.locals.pb;
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+
+const imageUrls = profile.photos.map((imageId) => {
+  return pb.files.getUrl(profile, imageId, { thumb: "100x250" });
+});
+---
+
+<div
+  class="flex overflow-x-auto scrollbar-hide relative gap-2 h-36 items-center"
+>
+  {
+    imageUrls.map((image) => {
+      return (
+        <img
+          src={image}
+          alt={profile.name}
+          class="snap-center object-contain"
+        />
+      );
+    })
+  }
+  <input
+    type="file"
+    id="photos"
+    name="photos"
+    accept="image/vdn.mozilla.apng, image/jpeg, image/png, image/gif, image/webp"
+    multiple
+  />
+</div>

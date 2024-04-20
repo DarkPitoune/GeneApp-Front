@@ -23,7 +23,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           },
         });
       })
-      .catch((e) => {
+      .catch(() => {
         return new Response(null, {
           status: 302,
           headers: {
