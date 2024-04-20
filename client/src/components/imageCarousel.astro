@@ -1,0 +1,33 @@
+---
+import { Profile } from "@interfaces/profile";
+
+const pb = Astro.locals.pb;
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+
+const imageUrls = profile.photos.map((imageId) => {
+  return pb.files.getUrl(profile, imageId, { thumb: "100x250" });
+});
+---
+
+<div class="h-36 w-36 md:h-24 md:w-24 hover:h-60 hover:w-60 transition-all">
+  <div
+    class="flex overflow-x-auto scrollbar-hide relative rounded-full gap-2 snap-x snap-mandatory h-full border-gray-100 hover:border"
+  >
+    {
+      imageUrls.map((image) => {
+        return (
+          <img
+            src={image}
+            alt={profile.name}
+            class="object-cover snap-center w-60"
+          />
+        );
+      })
+    }
+  </div>
+</div>

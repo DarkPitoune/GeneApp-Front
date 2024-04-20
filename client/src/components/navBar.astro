@@ -14,7 +14,7 @@ const links = [
 ---
 
 <nav
-  class="flex z-10 justify-between items-center bg-white px-8 md:px-2 lg:px-8 py-4 h-16 font-medium tracking-wide relative"
+  class="flex z-10 justify-between items-center bg-white px-8 md:px-2 lg:px-8 py-4 h-16 font-medium tracking-wide relative shadow-lg"
 >
   <div class="flex items-center gap-4 lg:gap-10">
     <div class="select-none font-serif text-xl lg:text-2xl uppercase">
@@ -45,15 +45,15 @@ const links = [
           <div
             class="h-0.5 w-6 rounded bg-black transition"
             x-bind:class="{'translate-y-2 rotate-45' : menuOpen}"
-          ></div>
+          />
           <div
             class="h-0.5 w-6 rounded bg-black transition"
             x-bind:class="{'opacity-0' : menuOpen}"
-          ></div>
+          />
           <div
             class="h-0.5 w-6 rounded bg-black transition"
             x-bind:class="{'-translate-y-2 -rotate-45' : menuOpen}"
-          ></div>
+          />
         </button>
         <div
           id="mobileMenu"

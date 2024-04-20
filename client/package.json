@@ -25,6 +25,7 @@
     "htmx.org": "^1.9.11",
     "marked": "^11.1.1",
     "pocketbase": "^0.21.0",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   },

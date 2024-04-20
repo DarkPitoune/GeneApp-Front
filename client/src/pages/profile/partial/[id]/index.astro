@@ -1,4 +1,5 @@
 ---
+import ImageCarousel from "@components/imageCarousel.astro";
 import { Profile } from "@interfaces/profile";
 
 const pb = Astro.locals.pb;
@@ -22,10 +23,13 @@ export const partial = true;
     >
       <img src="/icons/cross.svg" alt="cross" class="w-4 h-4" />
     </button>
-    <div>
-      <h1 class="text-5xl text-center font-serif">{profile.name}</h1>
-      <div class="text-center text-sm text-gray-500">
-        {profile.birthDate}{profile.deathDate && ` - ${profile.deathDate}`}
+    <div class="flex flex-col-reverse md:flex-row items-center gap-2">
+      {profile.photos.length > 0 && <ImageCarousel profile={profile} />}
+      <div class="grow flex flex-col justify-center">
+        <h1 class="text-5xl text-center font-serif">{profile.name}</h1>
+        <div class="text-center text-sm text-gray-500">
+          {profile.birthDate}{profile.deathDate && ` - ${profile.deathDate}`}
+        </div>
       </div>
     </div>
     <hr class="border-royal-blue border-t-2" />
