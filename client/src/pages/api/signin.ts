@@ -1,8 +1,8 @@
 import { APIRoute } from "astro";
-import pb from "@lib/pb";
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    const pb = locals.pb;
     const body = await request.text();
     const params = new URLSearchParams(body);
     const name = params.get("name");
@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
       passwordConfirm,
     });
 
-    const response = new Response(null, { status: 201 });
+    const response = new Response(null, { status: 302 });
     response.headers.append("Location", "/waitlist");
     return response;
   } catch (e) {

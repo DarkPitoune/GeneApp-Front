@@ -1,14 +1,13 @@
-import PocketBase from "pocketbase";
+import pb from "@lib/pb";
 
 import { defineMiddleware } from "astro/middleware";
 
 const unauthenticatedPaths = ["/login", "/logout", "/signin", "/waitlist"];
 
 export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
+  locals.pb = pb;
   if (unauthenticatedPaths.some((path) => request.url.includes(path)))
     return await next();
-  locals.pb = new PocketBase("https://api.genealogie.dhebrail.fr");
-  locals.pb.autoCancellation(false);
 
   locals.pb.authStore.loadFromCookie(request.headers.get("cookie") || "");
 

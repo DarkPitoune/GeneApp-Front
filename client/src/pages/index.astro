@@ -3,6 +3,28 @@ import Layout from "@layouts/Layout.astro";
 
 const user = Astro.locals.pb.authStore.model;
 const capitalizedName = user.name.charAt(0).toUpperCase() + user.name.slice(1);
+const hotLinks = [
+  {
+    href: "/article/9ogyhu6la4nnbtj",
+    title: "Mais d'où vient ce blason ?",
+    image: "/images/oldBlason.jpg",
+  },
+  {
+    href: "/article/9ogyhu6la4nnbtj",
+    title: "L'origine du nom d'Hébrail",
+    image: "/images/hill.jpeg",
+  },
+  {
+    href: "/article/9ogyhu6la4nnbtj",
+    title: "Les lieux de la famille",
+    image: "/images/treasure.jpeg",
+  },
+  {
+    href: "/article/9ogyhu6la4nnbtj",
+    title: "Les meilleures anecdotes",
+    image: "/images/random.jpeg",
+  },
+];
 ---
 
 <Layout title="Généalogie d'Hébrail" connected={true}>
@@ -49,10 +71,43 @@ const capitalizedName = user.name.charAt(0).toUpperCase() + user.name.slice(1);
       </div>
       <a
         href="/tree"
-        class="uppercase text-sm md:text-lg bg-black text-white hover:bg-gray-800 transition px-12 py-2 rounded-full"
+        class="uppercase text-sm md:text-lg bg-black text-white hover:bg-gray-800 transition px-12 py-2 rounded-full hover:scale-105"
       >
         Voir l'arbre généalogique
       </a>
     </div>
   </div>
+  <div class="py-10 px-6 md:px-16 flex flex-col items-center gap-16">
+    <h3 class="text-3xl md:text-4xl font-serif text-center">
+      Les articles <span class="text-royal-blue">à ne pas manquer</span>
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+      {
+        hotLinks.map((hl) => (
+          <a
+            href={hl.href}
+            h-
+            class="flex flex-col items-center gap-4 w-56 shadow focus:shadow-xl hover:shadow-xl rounded-3xl overflow-clip hover:scale-105 focus:scale-105 transition bg-white"
+          >
+            <img src={hl.image} alt={hl.title} class="w-full h-56" />
+            <div class="text-center px-2 pt-4 pb-6">{hl.title}</div>
+          </a>
+        ))
+      }
+    </div>
+    <a
+      href="/listing"
+      class="rounded-full bg-royal-blue text-sm md:text-lg uppercase text-white hover:scale-105 px-12 py-2 focus:scale-105 transition"
+      >Voir tous les articles</a
+    >
+  </div>
+  <footer class="bg-white px-2 py-4 text-center text-gray-500 text-sm">
+    Recherches faites par <b>Charles d'Hébrail</b> et <b>Mahaut d'Hébrail</b>,
+    design par <b>Isaure Donato</b>, site internet par <b>Pierre d'Hébrail</b
+    ><br />
+    <a
+      href="mailto:pierredheb@gmail.com"
+      class="text-royal-blue hover:underline">Contactez-nous</a
+    >
+  </footer>
 </Layout>

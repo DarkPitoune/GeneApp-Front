@@ -1,5 +1,4 @@
 import { Marriage } from "@interfaces/marriage";
-import { Parenthood } from "@interfaces/parenthood";
 import { Profile } from "@interfaces/profile";
 import { APIRoute } from "astro";
 
@@ -27,9 +26,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       child: record.id,
       mariage: marriage.id,
     };
-    const parenthood = await pb
-      .collection("parenthoods")
-      .create(parenthoodData);
+    await pb.collection("parenthoods").create(parenthoodData);
 
     return new Response("Enfant ajouté !", {
       status: 201,

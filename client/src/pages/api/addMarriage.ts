@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       husband: profile.sex === "M" ? profile.id : spouse.id,
       wife: profile.sex === "F" ? profile.id : spouse.id,
     };
-    const marriage = await pb.collection("mariages").create(marriageData);
+    await pb.collection("mariages").create(marriageData);
 
     return new Response("Mariage ajouté !", {
       status: 201,

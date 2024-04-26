@@ -53,9 +53,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       child: profile.id,
       mariage: marriage.id,
     };
-    const parenthood = await pb
-      .collection("parenthoods")
-      .create(parenthoodData);
+    await pb.collection("parenthoods").create(parenthoodData);
     return new Response("Parents ajoutés !", { status: 201 });
   } catch (e) {
     return new Response(e.message, { status: 500 });

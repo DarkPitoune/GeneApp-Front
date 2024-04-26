@@ -1,8 +1,8 @@
 import { APIRoute } from "astro";
-import pb from "@lib/pb";
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    const pb = locals.pb;
     const query = new URL(request.url).searchParams;
     const redirect = query.get("redirect") || "/";
     const body = await request.text();
@@ -23,7 +23,7 @@ export const POST: APIRoute = async ({ request }) => {
           },
         });
       })
-      .catch((e) => {
+      .catch(() => {
         return new Response(null, {
           status: 302,
           headers: {

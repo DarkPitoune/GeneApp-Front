@@ -1,4 +1,5 @@
 ---
+import ImageEditorCarousel from "@components/imageEditorCarousel.astro";
 import { Profile } from "@interfaces/profile";
 
 const pb = Astro.locals.pb;
@@ -16,17 +17,15 @@ const marriages = await pb.collection("mariages").getFullList({
   expand: "husband, wife",
 });
 
-const elders = await pb
+const elder = await pb
   .collection("profiles")
-  .getList<Profile>(1, 2, { sort: "birthDate" })
-  .then((res) => res.items);
-
-const isElder = elders.some((elder) => elder.id === id);
+  .getList<Profile>(1, 1, { sort: "birthDate", filter: "sex = 'M'" })
+  .then((res) => res.items[0]);
 
 export const partial = true;
 ---
 
-<div class="h-full w-[35rem] max-w-[100vw] pt-2 px-2">
+<div class="h-full w-[50rem] max-w-[100vw] p-2 overflow-scroll">
   <div class="bg-white shadow-lg rounded-lg p-4 relative">
     <button
       hx-get="/profile/partial"
@@ -49,6 +48,12 @@ export const partial = true;
           value={profile.name}
         />
       </div>
+      <div class="mb-4 flex flex-col gap-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="images">
+          Images
+        </label>
+        <ImageEditorCarousel profile={profile} />
+      </div>
       <div class="mb-4">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
@@ -60,8 +65,23 @@ export const partial = true;
         <input type="hidden" name="description" value={profile.description} />
       </div>
       <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="notes-editor"
+        >
+          Notes du généalogiste
+        </label>
+        <textarea
+          class="resize-none shadow w-full h-36"
+          id="notes-editor"
+          name="notes"
+          value={profile.notes}></textarea>
+      </div>
+      <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="birth">
-          Date de naissance <span class="text-gray-400 text-xs font-thin">(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span>
+          Date de naissance <span class="text-gray-400 text-xs font-thin"
+            >(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span
+          >
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -71,7 +91,9 @@ export const partial = true;
           value={profile.birthDate}
         />
         <label class="block text-gray-700 text-sm font-bold mb-2" for="birth">
-          Date de mort <span class="text-gray-400 text-xs font-thin">(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span>
+          Date de mort <span class="text-gray-400 text-xs font-thin"
+            >(format AAAA-MM-JJ ou AAAA-MM ou AAAA)</span
+          >
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -83,7 +105,7 @@ export const partial = true;
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="sex">
-          Sexe
+          Sexe <span class="text-xs text-gray-500">(Homme = Vrai)</span>
         </label>
         <input
           class=""
@@ -99,40 +121,49 @@ export const partial = true;
       >
         Modifier
       </button>
+      {
+        !marriages.length ? (
+          <button
+            hx-post={`/api/addMarriage?profileId=${profile.id}`}
+            class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          >
+            Ajouter mariage
+          </button>
+        ) : (
+          <button
+            hx-post={`/api/addChild?marriageId=${marriages[0].id}`}
+            class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          >
+            Ajouter enfant
+          </button>
+        )
+      }
+      {
+        elder.id === profile.id && (
+          <button
+            hx-post={`/api/addParents?profileId=${profile.id}`}
+            class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          >
+            Ajouter parents
+          </button>
+        )
+      }
+      {
+        !marriages && (
+          <button
+            hx-delete={`/api/profile/${profile.id}`}
+            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Supprimer
+          </button>
+        )
+      }
     </form>
-    {
-      !marriages.length ? (
-        <button
-          hx-post={`/api/addMarriage?profileId=${profile.id}`}
-          class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >
-          Ajouter mariage
-        </button>
-      ) : (
-        <button
-          hx-post={`/api/addChild?marriageId=${marriages[0].id}`}
-          class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >
-          Ajouter enfant
-        </button>
-      )
-    }
-    {isElder && <button
-      hx-post={`/api/addParents?profileId=${profile.id}`}
-      class="bg-transparent hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-    >
-      Ajouter parents
-    </button>}
-    {!marriages && <button
-      hx-delete={`/api/profile/${profile.id}`}
-      class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    >
-      Supprimer
-    </button>}
   </div>
 </div>
 
 <script
+  is:inline
   define:vars={{
     id: profile.id,
     personName: profile.name,
@@ -141,24 +172,32 @@ export const partial = true;
 >
   document.title = personName;
   window.history.pushState({}, "", `/tree?profileId=${id}`);
-  document
-    .getElementById("node-" + id)
-    .scrollIntoView({ behavior: "smooth", inline: "center", block: "center"});
+  document.getElementById("node-" + id).scrollIntoView({
+    behavior: "smooth",
+    inline: "center",
+    block: "center",
+  });
 
   const hiddenInput = document.querySelector("input[name=description]");
-  const editor = pell.init({
-    element: document.getElementById("description-editor"),
-    actions: [
-      "bold",
-      "italic",
-      "underline",
-      "heading1",
-      "heading2",
-      "paragraph",
-    ],
-    onChange: (html) => {
-      hiddenInput.value = html;
-    },
-  });
-  editor.content.innerHTML = personDescription;
+  function createEditor() {
+    const editor = pell.init({
+      element: document.getElementById("description-editor"),
+      actions: ["bold", "italic", "heading1", "heading2", "paragraph"],
+      onChange: (html) => (hiddenInput.value = html),
+    });
+    editor.content.innerHTML = personDescription;
+  }
+
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = true;
+  script.src = "https://unpkg.com/pell";
+  document.body.appendChild(script);
+  script.addEventListener("load", createEditor);
 </script>
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://unpkg.com/pell/dist/pell.min.css"
+/>
