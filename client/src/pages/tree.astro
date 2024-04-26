@@ -21,7 +21,7 @@ const profile: Profile | void = await pb
 ---
 
 <Layout title={profile ? profile.name : "Arbre généalogique"} connected={true}>
-  <div class="flex justify-between relative tree_wrapper">
+  <div class="flex justify-between relative tree_wrapper overflow-clip">
     <div class="overflow-scroll p-6">
       <TreeNode profile={elder} />
     </div>
@@ -29,7 +29,7 @@ const profile: Profile | void = await pb
       id="profile-card"
       hx-get={`/profile/partial/${profile ? profileId : ""}`}
       hx-trigger="load"
-      hx-swap="innerHTML"
+      hx-swap="innerHTML settle:1s"
       class="absolute top-0 right-0 h-full"
     >
     </div>
@@ -52,6 +52,15 @@ const profile: Profile | void = await pb
     }
     .tree-node:first-child:last-child::before {
       height: 0;
+    }
+
+    #profile_card_content {
+      transform: translateX(0);
+      transition: transform 0.25s cubic-bezier(0.77, 0.01, 0, 1.76);
+    }
+
+    #profile_card_content.htmx-added {
+      transform: translateX(100%);
     }
   </style>
 </Layout>

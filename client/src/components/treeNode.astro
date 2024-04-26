@@ -1,6 +1,7 @@
 ---
 import { Profile } from "@interfaces/profile";
 import { Parenthood } from "@interfaces/parenthood";
+import { Marriage } from "@interfaces/marriage";
 
 const pb = Astro.locals.pb;
 
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const { profile } = Astro.props;
-const mariages = await pb.collection("mariages").getFullList({
+const mariages = await pb.collection("mariages").getFullList<Marriage>({
   filter: `husband = '${profile.id}' || wife = '${profile.id}'`,
   expand: "husband, wife",
 });

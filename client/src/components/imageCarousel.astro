@@ -14,20 +14,88 @@ const imageUrls = profile.photos.map((imageId) => {
 });
 ---
 
-<div class="h-36 w-36 md:h-24 md:w-24 hover:h-60 hover:w-60 transition-all">
+<div class="size-44" x-data="{ modalOpen:false }">
   <div
-    class="flex overflow-x-auto scrollbar-hide relative rounded-full gap-2 snap-x snap-mandatory h-full border-gray-100 hover:border"
+    class="relative flex overflow-x-auto scrollbar-hide rounded-full gap-2 snap-x snap-mandatory h-full border-gray-100"
   >
-    {
-      imageUrls.map((image) => {
-        return (
-          <img
-            src={image}
-            alt={profile.name}
-            class="object-cover snap-center w-60"
-          />
-        );
-      })
-    }
+    <img
+      src={imageUrls[0]}
+      alt={profile.name}
+      class="object-cover snap-center w-60"
+    />
+    <div
+      class="absolute inset-0 bg-black opacity-0 hover:opacity-50 transition flex justify-center items-center"
+      x-on:click="modalOpen=true"
+    >
+      <svg width="24" height="24" fill="white" viewBox="0 0 16 16">
+        <path
+          d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"
+        ></path>
+        <path
+          d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
+        ></path>
+      </svg>
+    </div>
   </div>
+  <div
+    class="fixed inset-0 bg-black z-40 bg-opacity-90 flex justify-center items-center p-8"
+    x-show="modalOpen"
+    x-on:keydown.escape.window="modalOpen = false"
+    id="imageModal"
+  >
+    <button
+      x-on:click="modalOpen = false"
+      class="bg-black hover:bg-gray-800 transition bg-opacity-50 rounded-full size-10 p-1 absolute top-4 right-4"
+    >
+      <svg fill="white" viewBox="0 0 16 16">
+        <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
+        ></path>
+      </svg>
+    </button>
+    <button
+      id="goLeftButton"
+      class="bg-black hover:bg-gray-800 transition bg-opacity-50 rounded-full size-10 p-2 absolute top-1/2 left-4 -translate-y-1/2"
+    >
+      <svg fill="white" viewBox="0 0 16 16">
+        <path
+          d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+        ></path>
+      </svg>
+    </button>
+    <img id="modal-image" src={imageUrls[0]} class="object-contain h-5/6" />
+    <button
+      id="goRightButton"
+      class="bg-black hover:bg-gray-800 transition bg-opacity-50 rounded-full size-10 p-2 absolute top-1/2 right-4 -translate-y-1/2"
+    >
+      <svg fill="white" viewBox="0 0 16 16">
+        <path
+          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+        ></path>
+      </svg>
+    </button>
+  </div>
+
+  <script is:inline define:vars={{ imageUrls }}>
+    let currentImage = 0;
+    function goLeft() {
+      currentImage = (currentImage - 1 + imageUrls.length) % imageUrls.length;
+      document.getElementById("modal-image").src = imageUrls[currentImage];
+    }
+    document.getElementById("goLeftButton").addEventListener("click", goLeft);
+    document
+      .getElementById("imageModal")
+      .addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          goLeft();
+        } else if (event.key === "ArrowRight") {
+          goRight();
+        }
+      });
+    function goRight() {
+      currentImage = (currentImage + 1) % imageUrls.length;
+      document.getElementById("modal-image").src = imageUrls[currentImage];
+    }
+    document.getElementById("goRightButton").addEventListener("click", goRight);
+  </script>
 </div>

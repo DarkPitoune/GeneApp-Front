@@ -4,12 +4,13 @@ interface Props {
 }
 
 const { connected } = Astro.props;
+const path = new URL(Astro.request.url).pathname;
 
 const links = [
   { label: "Accueil", href: "/" },
   { label: "Arbre généalogique", href: "/tree" },
   { label: "Les articles", href: "/listing" },
-  { label: "Les personnes", href: "/listing" },
+  { label: "Déconnexion", href: "/api/logout" },
 ];
 ---
 
@@ -26,6 +27,7 @@ const links = [
           {links.map(({ label, href }) => (
             <a
               href={href}
+              aria-current={path === href ? "page" : undefined}
               class="rounded px-4 py-1 uppercase transition hover:bg-gray-100 focus:bg-gray-200 focus:outline-none"
             >
               {label}
@@ -64,6 +66,7 @@ const links = [
             <a
               href={href}
               x-on:click="menuOpen = false"
+              aria-current={path === href ? "page" : undefined}
               class="block w-full px-4 py-2 uppercase text-center bg-white focus:bg-gray-200 focus:outline-none rounded transition"
             >
               {label}
@@ -74,3 +77,9 @@ const links = [
     )
   }
 </nav>
+
+<style>
+  [aria-current="page"] {
+    color: #0534a3;
+  }
+</style>
