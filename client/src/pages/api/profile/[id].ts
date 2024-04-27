@@ -27,16 +27,16 @@ export const PUT: APIRoute = async ({ request, locals }) => {
       : request.url;
   const profileId = url.split("/").pop();
 
-  const body = await request.text();
-  const params = new URLSearchParams(body);
+  const reader = await request.formData();
   // @ts-expect-error it works so..
-  const data = Object.fromEntries(params.entries());
+  const data = Object.fromEntries(reader.entries());
 
   if (!data.sex || data.sex != "on") data.sex = "F";
   else data.sex = "M";
 
-  if (!profileId || !data.name || !data.sex || !data.birthDate)
+  if (!profileId || !data.name || !data.sex || !data.birthDate) {
     return new Response("Incomplete data", { status: 400 });
+  }
 
   const record = await pb.collection("profiles").update(profileId, data);
   const response = new Response(null, {

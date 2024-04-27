@@ -27,9 +27,10 @@ const profile: Profile | void = await pb
     </div>
     <div
       id="profile-card"
+      x-data="{ imageCarouselModalOpen:false }"
       hx-get={`/profile/partial/${profile ? profileId : ""}`}
       hx-trigger="load"
-      hx-swap="innerHTML settle:1s"
+      hx-swap="innerHTML"
       class="absolute top-0 right-0 h-full"
     >
     </div>
@@ -59,7 +60,7 @@ const profile: Profile | void = await pb
       transition: transform 0.25s cubic-bezier(0.77, 0.01, 0, 1.76);
     }
 
-    #profile_card_content.htmx-added {
+    .htmx-added > #profile_card_content {
       transform: translateX(100%);
     }
   </style>

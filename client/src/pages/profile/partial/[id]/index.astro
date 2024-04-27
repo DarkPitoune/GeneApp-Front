@@ -15,15 +15,17 @@ const displayDate = (date: string) => {
   return `${year}`;
 };
 
+const imageUrls = profile.photos.map((imageId) => {
+  return pb.files.getUrl(profile, imageId, { thumb: "100x250" });
+});
+
 export const partial = true;
 ---
 
-<div
-  class="h-full w-[35rem] max-w-[100vw] py-2 px-2 flex"
-  id="profile_card_content"
->
+<div class="h-full w-[35rem] max-w-[100vw] py-2 px-2 flex">
   <div
     class="bg-white shadow-lg rounded-2xl p-6 relative flex flex-col gap-6 grow min-h-0"
+    id="profile_card_content"
   >
     <button
       hx-get="/profile/partial"
@@ -33,7 +35,28 @@ export const partial = true;
       <img src="/icons/cross.svg" alt="cross" class="size-4" />
     </button>
     <div class="flex flex-col-reverse md:flex-row items-center gap-2">
-      {profile.photos.length > 0 && <ImageCarousel profile={profile} />}
+      {
+        imageUrls.length > 0 && (
+          <div class="size-44">
+            <div class="relative flex overflow-x-auto scrollbar-hide rounded-full gap-2 snap-x snap-mandatory h-full border-gray-100">
+              <img
+                src={imageUrls[0]}
+                alt={profile.name}
+                class="object-cover snap-center w-60"
+              />
+              <div
+                class="absolute inset-0 bg-black opacity-0 hover:opacity-50 transition flex justify-center items-center"
+                x-on:click="imageCarouselModalOpen=true"
+              >
+                <svg width="24" height="24" fill="white" viewBox="0 0 16 16">
+                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        )
+      }
       <div class="grow flex flex-col justify-center">
         <h1 class="text-5xl text-center font-serif">{profile.name}</h1>
         <div class="text-center text-sm text-gray-500">
@@ -57,6 +80,7 @@ export const partial = true;
       )
     }
   </div>
+  {imageUrls.length >= 0 && <ImageCarousel imageUrls={imageUrls} />}
 </div>
 <script is:inline define:vars={{ id: profile.id, personName: profile.name }}>
   document.title = personName;
