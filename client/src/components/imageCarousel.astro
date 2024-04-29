@@ -34,11 +34,18 @@ const { imageUrls } = Astro.props;
       ></path>
     </svg>
   </button>
-  <img
-    id="modal-image"
-    x-bind:src="imageUrls[currentImage]"
-    class="object-contain h-5/6"
-  />
+  <div class="h-5/6 w-5/6 relative flex gap-2">
+    {
+      imageUrls.map((url, index) => (
+        <div
+          class="absolute top-1/2 left-0 flex justify-center size-full transition"
+          x-bind:style={`\`transform: translate(calc(${index} * 100% - \${currentImage} * 100%), -50%)\``}
+        >
+          <img id="modal-image" src={url} class="object-contain h-full" />
+        </div>
+      ))
+    }
+  </div>
   <button
     x-on:click="currentImage = (currentImage + 1) % imageUrls.length"
     class="bg-black hover:bg-gray-800 transition bg-opacity-50 rounded-full size-10 p-2 absolute top-1/2 right-4 -translate-y-1/2"
@@ -49,5 +56,16 @@ const { imageUrls } = Astro.props;
       ></path>
     </svg>
   </button>
-  <div class="absolute"></div>
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+    {
+      imageUrls.map((_, index) => {
+        return (
+          <div
+            class="bg-white size-2 rounded-full transition"
+            x-bind:class={`currentImage !== ${index} && 'bg-opacity-50'`}
+          />
+        );
+      })
+    }
+  </div>
 </div>
