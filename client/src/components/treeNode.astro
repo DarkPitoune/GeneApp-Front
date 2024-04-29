@@ -2,6 +2,7 @@
 import { Profile } from "@interfaces/profile";
 import { Parenthood } from "@interfaces/parenthood";
 import { Marriage } from "@interfaces/marriage";
+import { getCachedParenthood } from "@lib/parenthoodCache";
 
 const pb = Astro.locals.pb;
 
@@ -21,10 +22,7 @@ let parenthood: Parenthood[] = [];
 const lineageIsHusband = profile.sex === "M";
 
 if (mariages.length > 0) {
-  parenthood = await pb.collection("parenthoods").getFullList({
-    filter: `mariage = '${mariages[0].id}'`,
-    expand: "child",
-  });
+  parenthood = await getCachedParenthood(pb, mariages[0].id);
 
   husband = profile.sex === "M" ? profile : mariages[0].expand.husband;
   wife = profile.sex === "F" ? profile : mariages[0].expand.wife;
