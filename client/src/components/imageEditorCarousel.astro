@@ -19,15 +19,46 @@ const imageUrls = profile.photos.map((imageId) => {
 >
   {
     imageUrls.map((image) => {
+      const fileName = image.split("/").pop().split("?")[0];
+      const id = fileName.split(".")[0].replace(/-/g, "_");
       return (
-        <img
-          src={image}
-          alt={profile.name}
-          class="snap-center object-contain"
-        />
+        <div class="size-36 relative group shrink-0">
+          <img
+            src={image}
+            alt={profile.name}
+            class="object-contain absolute top-1/2 left-0 right-0 -translate-y-1/2"
+          />
+          <button
+            type="button"
+            class="absolute top-0 right-0 p-1 bg-red-500 text-white group-hover:opacity-100 opacity-0"
+            onclick={`const input = document.getElementById('deletePhotos_input'); input.value = input.value + '${fileName}' + ';'; this.style.opacity = '100%'`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
       );
     })
   }
+  <input type="hidden" name="deletePhotos" id="deletePhotos_input" />
+  <label
+    for="photos"
+    class="flex items-center justify-center size-36 bg-gray-200 text-gray-500 cursor-pointer min-w-0 shrink-0"
+  >
+    Ajouter une image
+  </label>
   <input
     type="file"
     id="photos"
@@ -35,4 +66,10 @@ const imageUrls = profile.photos.map((imageId) => {
     accept="image/vdn.mozilla.apng, image/jpeg, image/png, image/gif, image/webp"
     multiple
   />
+</div>
+<div class="text-sm text-gray-500 text-center">
+  Pour réorganiser les images, allez sur l'<a
+    class="underline hover:text-black"
+    href="https://api.genealogie.dhebrail.fr/_/">interface admin</a
+  >
 </div>

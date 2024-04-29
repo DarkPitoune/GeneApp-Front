@@ -40,7 +40,7 @@ const { title, connected } = Astro.props;
     <main
       hx-indicator="#spinner"
       class="grow flex flex-col items-stretch"
-      x-on:touchstart="menuOpen = false"
+      x-on:touchstart.passive="menuOpen = false"
     >
       <slot />
     </main>
@@ -58,14 +58,18 @@ const { title, connected } = Astro.props;
 
 <style>
   #spinner {
-    display: none;
     opacity: 0;
-    transition: opacity 100ms ease-in;
+    transition: all 100ms ease-in;
+    padding: 0;
+    height: 0;
+    width: 0;
     transition-delay: 400ms;
   }
 
   .htmx-request#spinner {
-    display: block;
+    height: 62px;
+    width: 62px;
+    padding: 16px;
     opacity: 1;
   }
 </style>

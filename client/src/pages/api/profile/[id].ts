@@ -30,6 +30,7 @@ export const PUT: APIRoute = async ({ request, locals }) => {
   const reader = await request.formData();
   // @ts-expect-error it works so..
   const data = Object.fromEntries(reader.entries());
+  const deletePhotos = data.deletePhotos.split(";").filter((x: string) => x);
 
   if (!data.sex || data.sex != "on") data.sex = "F";
   else data.sex = "M";
@@ -38,7 +39,9 @@ export const PUT: APIRoute = async ({ request, locals }) => {
     return new Response("Incomplete data", { status: 400 });
   }
 
-  const record = await pb.collection("profiles").update(profileId, data);
+  const record = await pb
+    .collection("profiles")
+    .update(profileId, { data, "photos-": deletePhotos });
   const response = new Response(null, {
     status: 200,
     headers: {
