@@ -1,4 +1,4 @@
-import { Parenthood } from "@interfaces/parenthood";
+import type { Parenthood } from "@interfaces/parenthood";
 import PocketBase from "pocketbase";
 
 // quick and dirty implementation of a cache

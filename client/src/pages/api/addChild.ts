@@ -1,6 +1,6 @@
-import { Marriage } from "@interfaces/marriage";
-import { Profile } from "@interfaces/profile";
-import { APIRoute } from "astro";
+import type { Marriage } from "@interfaces/marriage";
+import type { Profile } from "@interfaces/profile";
+import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {

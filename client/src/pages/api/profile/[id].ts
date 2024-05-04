@@ -1,4 +1,4 @@
-import { APIRoute } from "astro";
+import type { APIRoute } from "astro";
 
 export const DELETE: APIRoute = async ({ request, locals }) => {
   const pb = locals.pb;

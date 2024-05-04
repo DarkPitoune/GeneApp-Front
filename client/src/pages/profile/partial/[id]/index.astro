@@ -1,6 +1,6 @@
 ---
 import ImageCarousel from "@components/imageCarousel.astro";
-import { Profile } from "@interfaces/profile";
+import type { Profile } from "@interfaces/profile";
 
 const pb = Astro.locals.pb;
 const isAdmin = pb.authStore.model.isAdmin;

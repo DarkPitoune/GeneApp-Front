@@ -1,5 +1,5 @@
 ---
-import { Profile } from "@interfaces/profile";
+import type { Profile } from "@interfaces/profile";
 
 const pb = Astro.locals.pb;
 
@@ -20,7 +20,6 @@ const imageUrls = profile.photos.map((imageId) => {
   {
     imageUrls.map((image) => {
       const fileName = image.split("/").pop().split("?")[0];
-      const id = fileName.split(".")[0].replace(/-/g, "_");
       return (
         <div class="size-36 relative group shrink-0">
           <img

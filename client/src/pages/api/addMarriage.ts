@@ -1,5 +1,5 @@
-import { Profile } from "@interfaces/profile";
-import { APIRoute } from "astro";
+import type { Profile } from "@interfaces/profile";
+import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
