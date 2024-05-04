@@ -2,8 +2,27 @@
 import Layout from "@layouts/Layout.astro";
 ---
 
-<Layout title="404" connected={false}>
-  <h1>404</h1>
-  <p>Page inexistante</p>
-  <a href="/">Retour à l'accueil</a>
+<Layout title="Oups !" connected={false}>
+  <div class="flex flex-col items-center p-4 md:p-16 welcome_screen">
+    <div class="grow w-full relative">
+      <h1
+        class="absolute font-serif text-7xl text-center left-0 top-6 md:-top-6 right-0"
+      >
+        Oups !
+      </h1>
+      <img
+        src="/icons/404.svg"
+        alt="Erreur 404"
+        class="h-full absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2"
+      />
+      <div class="text-center mb-12 absolute bottom-4 left-0 right-0">
+        <h3 class="font-serif text-3xl">On dirait que vous vous êtes perdus</h3>
+        <p>Pas de panique, on vous ramène à la maison</p>
+      </div>
+    </div>
+    <a
+      class="rounded-full bg-royal-blue text-sm md:text-lg uppercase text-white hover:scale-105 px-12 py-2 focus:outline-none focus:scale-105 transition"
+      href="/">Retour à l'accueil</a
+    >
+  </div>
 </Layout>
