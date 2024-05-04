@@ -4,7 +4,7 @@ migrate((db) => {
     {
       "id": "_pb_users_auth_",
       "created": "2024-01-26 18:56:03.807Z",
-      "updated": "2024-02-12 12:05:19.359Z",
+      "updated": "2024-03-30 11:20:11.659Z",
       "name": "users",
       "type": "auth",
       "system": false,
@@ -77,7 +77,7 @@ migrate((db) => {
     {
       "id": "9mgm1j0y2kvqf9c",
       "created": "2024-01-29 10:01:20.584Z",
-      "updated": "2024-03-26 15:22:40.544Z",
+      "updated": "2024-03-30 11:20:11.667Z",
       "name": "articles",
       "type": "base",
       "system": false,
@@ -136,7 +136,7 @@ migrate((db) => {
     {
       "id": "ndz19an6r0hb57x",
       "created": "2024-01-29 13:12:54.774Z",
-      "updated": "2024-03-26 15:05:40.376Z",
+      "updated": "2024-04-12 17:40:45.252Z",
       "name": "profiles",
       "type": "base",
       "system": false,
@@ -240,20 +240,42 @@ migrate((db) => {
             "maxSelect": null,
             "displayFields": null
           }
+        },
+        {
+          "system": false,
+          "id": "0e1wpmvd",
+          "name": "photos",
+          "type": "file",
+          "required": false,
+          "presentable": false,
+          "unique": false,
+          "options": {
+            "mimeTypes": [
+              "image/vnd.mozilla.apng",
+              "image/jpeg",
+              "image/png",
+              "image/gif",
+              "image/webp"
+            ],
+            "thumbs": [],
+            "maxSelect": 99,
+            "maxSize": 20971520,
+            "protected": false
+          }
         }
       ],
       "indexes": [],
       "listRule": "@request.auth.verified = true",
       "viewRule": "@request.auth.verified = true",
-      "createRule": null,
-      "updateRule": null,
-      "deleteRule": null,
+      "createRule": "@request.auth.isAdmin = true",
+      "updateRule": "@request.auth.isAdmin = true",
+      "deleteRule": "@request.auth.isAdmin = true",
       "options": {}
     },
     {
       "id": "1x9nkrvoi4uoo78",
       "created": "2024-01-29 19:41:38.649Z",
-      "updated": "2024-03-26 15:22:17.123Z",
+      "updated": "2024-03-31 15:14:15.003Z",
       "name": "mariages",
       "type": "base",
       "system": false,
@@ -296,15 +318,15 @@ migrate((db) => {
       ],
       "listRule": "@request.auth.verified = true",
       "viewRule": "@request.auth.verified = true",
-      "createRule": null,
-      "updateRule": null,
-      "deleteRule": null,
+      "createRule": "@request.auth.isAdmin = true",
+      "updateRule": "@request.auth.isAdmin = true",
+      "deleteRule": "@request.auth.isAdmin = true",
       "options": {}
     },
     {
       "id": "e1z6ejt0kaef1p4",
       "created": "2024-01-30 09:05:43.493Z",
-      "updated": "2024-03-26 15:22:01.753Z",
+      "updated": "2024-03-31 15:14:24.020Z",
       "name": "parenthoods",
       "type": "base",
       "system": false,
@@ -347,15 +369,15 @@ migrate((db) => {
       ],
       "listRule": "@request.auth.verified = true",
       "viewRule": "@request.auth.verified = true",
-      "createRule": null,
-      "updateRule": null,
-      "deleteRule": null,
+      "createRule": "@request.auth.isAdmin = true",
+      "updateRule": "@request.auth.isAdmin = true",
+      "deleteRule": "@request.auth.isAdmin = true",
       "options": {}
     },
     {
       "id": "ghlbjtpp30eohjd",
       "created": "2024-03-26 09:04:03.371Z",
-      "updated": "2024-03-26 09:04:03.371Z",
+      "updated": "2024-03-30 11:20:11.669Z",
       "name": "labels",
       "type": "base",
       "system": false,
