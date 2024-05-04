@@ -1,7 +1,8 @@
 export interface Article {
-  Titre: string;
-  Description: string;
-  Categorie: string;
+  id: string;
+  title: string;
+  description: string;
+  photos?: string[];
 }
 
 export interface ArticleResponse {

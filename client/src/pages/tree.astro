@@ -12,12 +12,13 @@ const elder = await pb
 
 const profileId = Astro.url.searchParams.get("profileId") || "";
 
-const profile: Profile | void = await pb
+const profile: Profile | undefined = await pb
   .collection("profiles")
   .getOne<Profile>(profileId)
-  .catch(() => {
-    Astro.redirect("/tree");
-  });
+  .catch(() => undefined);
+if (profileId && !profile) {
+  Astro.redirect("/tree");
+}
 ---
 
 <Layout title={profile ? profile.name : "Arbre généalogique"} connected={true}>

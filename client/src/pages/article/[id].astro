@@ -1,11 +1,17 @@
 ---
+import { Article } from "@interfaces/article";
 import Layout from "@layouts/Layout.astro";
 
 const pb = Astro.locals.pb;
 
 const { id } = Astro.params;
 
-const article = await pb.collection("articles").getOne(id);
+const article: Article | undefined = await pb
+  .collection("articles")
+  .getOne<Article>(id)
+  .catch(() => undefined);
+
+if (!article) return Astro.redirect("/404");
 ---
 
 <Layout title={article.title} connected={true}>

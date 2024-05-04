@@ -1,0 +1,59 @@
+---
+import { Article } from "@interfaces/article";
+import Layout from "@layouts/Layout.astro";
+
+const pb = Astro.locals.pb;
+
+const articles = await pb.collection("articles").getFullList<Article>();
+articles.forEach((article) => {
+  article.photos = article.photos.map((photo) => {
+    return pb.files.getUrl(article, photo);
+  });
+  if (article.photos.length === 0) {
+    article.photos.push("/images/default.png");
+  }
+});
+---
+
+<Layout title="Les articles" connected={true}>
+  <div class="p-8 flex flex-col items-center justify-around gap-2">
+    <h1 class="text-6xl font-serif">Les articles</h1>
+    <p class="text-lg max-w-[800px] text-center">
+      Nos recherches dans les archives et les mémoires nous ont permis de
+      découvrir un tas d'histoires et de secrets sur notre famille. Êtes-vous
+      prêt à les découvrir ?
+    </p>
+    <div class="flex gap-4 md:w-1/2 py-3 px-6 rounded-full bg-white sticky">
+      <img src="/icons/search.svg" alt="Rechercher" class="w-6 h-6" />
+      <input
+        type="search"
+        id="globalSearch"
+        placeholder="Rechercher un article"
+        class="grow focus:outline-none text-sm md:text-base"
+      />
+    </div>
+  </div>
+  <div>
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      {
+        articles.map((article) => (
+          <li class="bg-white rounded-lg shadow-md">
+            <a href={`/article/${article.id}`} class="block">
+              <img
+                src={article.photos[0]}
+                class="w-full h-48 object-cover rounded-t-lg"
+              />
+              <div class="p-4">
+                <h2 class="text-xl font-bold">{article.title}</h2>
+                <p
+                  class="text-sm text-gray-500"
+                  set:html={article.description}
+                />
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
