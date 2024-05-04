@@ -19,6 +19,7 @@
     "@fontsource/dm-serif-display": "^5.0.19",
     "@fontsource/josefin-sans": "^5.0.19",
     "@types/alpinejs": "^3.13.10",
+    "algoliasearch": "^4.23.3",
     "alpinejs": "^3.13.7",
     "astro": "^4.1.1",
     "astro-htmx": "^1.0.5",

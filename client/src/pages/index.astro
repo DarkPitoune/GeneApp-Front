@@ -38,14 +38,33 @@ const hotLinks = [
         </h1>
         <div class="font-medium">Qu'allez vous découvrir aujourd'hui ?</div>
       </div>
-      <div class="flex gap-4 md:w-1/2 py-3 px-6 rounded-full bg-white">
-        <img src="/icons/search.svg" alt="Rechercher" class="w-6 h-6" />
-        <input
-          type="search"
-          id="globalSearch"
-          placeholder="Rechercher une personne ou un article"
-          class="grow focus:outline-none text-sm md:text-base"
-        />
+      <div class="relative rounded-3xl md:w-1/2 bg-white text-left">
+        <div class="flex gap-4 py-3 px-6">
+          <img src="/icons/search.svg" alt="Rechercher" class="size-6" />
+          <input
+            type="search"
+            name="query"
+            autocomplete="off"
+            id="globalSearch"
+            hx-get="/search"
+            hx-indicator="#searchSpinner"
+            hx-trigger="input changed, search"
+            hx-target="#auto_suggestions"
+            placeholder="Rechercher une personne ou un article (⌘ + K)"
+            class="grow focus:outline-none text-sm md:text-base"
+            x-on:keydown.k.meta.window.prevent="document.getElementById('globalSearch').focus()"
+          />
+          <div
+            id="searchSpinner"
+            class="rounded-full border-2 border-gray-100 border-t-royal-blue animate-spin size-6"
+          >
+          </div>
+        </div>
+        <div
+          id="auto_suggestions"
+          class="flex flex-col rounded-3xl items-stretch"
+        >
+        </div>
       </div>
     </div>
     <img
@@ -111,3 +130,14 @@ const hotLinks = [
     >
   </footer>
 </Layout>
+
+<style>
+  #searchSpinner {
+    opacity: 0;
+  }
+
+  .htmx-request#searchSpinner {
+    opacity: 1;
+    transition: all 100ms ease-in;
+  }
+</style>

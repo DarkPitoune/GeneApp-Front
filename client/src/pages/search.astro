@@ -1,0 +1,30 @@
+---
+import algoliasearch from "algoliasearch";
+
+const client = algoliasearch(
+  import.meta.env.SECRET_ALGOLIA_ID,
+  import.meta.env.SECRET_ALGOLIA_KEY
+);
+
+const query = Astro.url.searchParams.get("query") || "";
+
+let hits = [];
+if (query) {
+  const index = client.initIndex("dhebrail_family");
+  const { hits: searchHits } = await index.search(query, {
+    attributesToRetrieve: ["name", "id"],
+    hitsPerPage: 5,
+  });
+  hits = searchHits;
+}
+
+export const partial = true;
+---
+
+{
+  hits.map((hit) => (
+    <a class="hover:bg-gray-200 px-4 py-2" href={`/tree?profileId=${hit.id}`}>
+      {hit.name}
+    </a>
+  ))
+}

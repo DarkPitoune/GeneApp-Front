@@ -33,13 +33,13 @@ const { title, connected } = Astro.props;
     <title>{title}</title>
   </head>
   <body
-    class="overflow-x-clip bg-discreet-cream min-h-screen flex flex-col"
+    class="overflow-x-clip bg-white min-h-screen flex flex-col"
     x-data="{ menuOpen : false }"
   >
     <NavBar connected={connected} />
     <main
       hx-indicator="#spinner"
-      class="grow flex flex-col items-stretch"
+      class="grow flex flex-col items-stretch bg-discreet-cream"
       x-on:touchstart.passive="menuOpen = false"
     >
       <slot />

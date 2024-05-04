@@ -7,6 +7,8 @@ declare namespace App {
 
 interface ImportMetaEnv {
   readonly SECRET_PB_URL: string;
+  readonly SECRET_ALGOLIA_ID: string;
+  readonly SECRET_ALGOLIA_KEY: string;
 }
 
 interface ImportMeta {
