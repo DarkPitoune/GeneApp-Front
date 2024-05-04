@@ -17,5 +17,4 @@ export const partial = true;
 </div>
 <script is:inline define:vars={{ id: profile.id, personName: profile.name }}>
   document.title = personName;
-  window.history.pushState({}, "", `/tree?profileId=${id}`);
 </script>

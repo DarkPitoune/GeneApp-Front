@@ -49,6 +49,7 @@ const comte = husband?.labels.some((label) => label === "lineagedhebrail");
           id={`node-${husband.id}`}
           hx-get={`/profile/partial/${husband.id}`}
           hx-target="#profile-card"
+          hx-push-url={"/tree?profileId=" + husband.id}
           hx-swap="innerHTML"
           class:list={[
             "w-32 bg-blue-100 p-2 block whitespace-nowrap overflow-clip hover:whitespace-normal",

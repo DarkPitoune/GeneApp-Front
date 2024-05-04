@@ -30,6 +30,7 @@ export const partial = true;
     <button
       hx-get="/profile/partial"
       hx-target="#profile-card"
+      hx-push-url="/tree"
       class="absolute top-4 right-4 flex items-center justify-center w-8 h-8 bg-gray-200 hover:bg-gray-300 text-gray-600 hover:text-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400"
     >
       <img src="/icons/cross.svg" alt="cross" class="w-4 h-4" />
@@ -184,7 +185,6 @@ export const partial = true;
   }}
 >
   document.title = personName;
-  window.history.pushState({}, "", `/tree?profileId=${id}`);
   document.getElementById("node-" + id).scrollIntoView({
     behavior: "smooth",
     inline: "center",
