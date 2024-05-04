@@ -28,9 +28,9 @@ const hotLinks = [
 ---
 
 <Layout title="Généalogie d'Hébrail" connected={true}>
-  <div class="grid grid-cols-3 welcome_screen">
+  <div class="welcome_screen">
     <div
-      class="p-4 col-span-3 md:col-span-2 text-center md:text-right flex flex-col justify-center items-stretch md:items-end gap-4"
+      class="absolute top-1/2 right-1/3 left-0 p-4 col-span-3 md:col-span-2 text-center md:text-right flex flex-col justify-center items-stretch md:items-end gap-4"
     >
       <div class="flex flex-col z-10">
         <h1 class="text-4xl md:text-5xl font-serif font-medium">
@@ -38,7 +38,10 @@ const hotLinks = [
         </h1>
         <div class="font-medium">Qu'allez vous découvrir aujourd'hui ?</div>
       </div>
-      <div class="relative rounded-3xl md:w-1/2 bg-white text-left">
+      <div
+        class="relative rounded-3xl overflow-clip md:w-1/2 bg-white text-left"
+        x-data="{ selectedResult: -1 }"
+      >
         <div class="flex gap-4 py-3 px-6">
           <img src="/icons/search.svg" alt="Rechercher" class="size-6" />
           <input
@@ -52,7 +55,11 @@ const hotLinks = [
             hx-target="#auto_suggestions"
             placeholder="Rechercher une personne ou un article (⌘ + K)"
             class="grow focus:outline-none text-sm md:text-base"
+            x-on:input="selectedResult = -1"
             x-on:keydown.k.meta.window.prevent="document.getElementById('globalSearch').focus()"
+            x-on:keydown.down.prevent="selectedResult = Math.min(selectedResult + 1, document.getElementById('auto_suggestions').children.length - 1)"
+            x-on:keydown.up.prevent="selectedResult = Math.max(selectedResult - 1, 0)"
+            x-on:keydown.enter.prevent="document.getElementById('auto_suggestions').children[selectedResult].click()"
           />
           <div
             id="searchSpinner"
@@ -60,11 +67,7 @@ const hotLinks = [
           >
           </div>
         </div>
-        <div
-          id="auto_suggestions"
-          class="flex flex-col rounded-3xl items-stretch"
-        >
-        </div>
+        <div id="auto_suggestions" class="flex flex-col items-stretch"></div>
       </div>
     </div>
     <img

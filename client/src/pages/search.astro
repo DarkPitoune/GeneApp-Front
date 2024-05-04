@@ -22,8 +22,12 @@ export const partial = true;
 ---
 
 {
-  hits.map((hit) => (
-    <a class="hover:bg-gray-200 px-4 py-2" href={`/tree?profileId=${hit.id}`}>
+  hits.map((hit, index) => (
+    <a
+      class="hover:bg-gray-200 focus:outline-none focus:bg-gray-200 px-4 py-2"
+      href={`/tree?profileId=${hit.id}`}
+      x-bind:class={`selectedResult === ${index} && 'bg-gray-200'`}
+    >
       {hit.name}
     </a>
   ))
