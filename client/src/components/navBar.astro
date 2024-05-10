@@ -27,7 +27,7 @@ const links = [
           {links.map(({ label, href }) => (
             <a
               href={href}
-              aria-current={path.includes(href) ? "page" : undefined}
+              aria-current={path === href ? "page" : undefined}
               class="rounded px-4 py-1 uppercase transition hover:bg-gray-100 focus:bg-gray-200 focus:outline-none"
             >
               {label}
