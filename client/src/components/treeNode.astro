@@ -82,10 +82,10 @@ const comte = husband?.labels.some((label) => label === "lineagedhebrail");
     !!parenthood.length && (
       <button
         x-on:click="open=!open"
-        class="w-2 h-2 hover:scale-[3] rounded-full bg-white"
+        class="w-2 h-2 hover:scale-[3] rounded-full bg-white flex items-center justify-center"
         x-bind:class="{ 'scale-150': !open }"
       >
-        <img src="/icons/cross.svg" alt="expand" />
+        <i class="ph ph-x text-xs" />
       </button>
     )
   }

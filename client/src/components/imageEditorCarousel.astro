@@ -29,23 +29,10 @@ const imageUrls = profile.photos.map((imageId) => {
           />
           <button
             type="button"
-            class="absolute top-0 right-0 p-1 bg-red-500 text-white group-hover:opacity-100 opacity-0"
+            class="absolute top-0 right-0 p-1 bg-red-500 text-white group-hover:opacity-100 opacity-0 aspect-square"
             onclick={`const input = document.getElementById('deletePhotos_input'); input.value = input.value + '${fileName}' + ';'; this.style.opacity = '100%'`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <i class="ph ph-trash text-white" />
           </button>
         </div>
       );

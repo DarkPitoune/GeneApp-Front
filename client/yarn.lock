@@ -1044,6 +1044,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@phosphor-icons/web@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@phosphor-icons/web/-/web-2.1.1.tgz#a456457f8be17199cb03aa172ce352cc107ae707"
+  integrity sha512-QjrfbItu5Rb2i37GzsKxmrRHfZPTVk3oXSPBnQ2+oACDbQRWGAeB0AsvZw263n1nFouQuff+khOCtRbrc6+k+A==
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"

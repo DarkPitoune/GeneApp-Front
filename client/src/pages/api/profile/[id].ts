@@ -41,7 +41,7 @@ export const PUT: APIRoute = async ({ request, locals }) => {
 
   const record = await pb
     .collection("profiles")
-    .update(profileId, { data, "photos-": deletePhotos });
+    .update(profileId, { ...data, "photos-": deletePhotos });
   const response = new Response(null, {
     status: 200,
     headers: {
