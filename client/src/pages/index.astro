@@ -1,27 +1,33 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import hill from "@images/hill.jpeg";
+import treasure from "@images/treasure.jpeg";
+import random from "@images/random.jpeg";
+import oldBlason from "@images/oldBlason.jpg";
+import bigBlasonSimple from "@images/bigBlasonSimple.png";
 
 const user = Astro.locals.pb.authStore.model;
 const hotLinks = [
   {
     href: "/article/9ogyhu6la4nnbtj",
     title: "Mais d'où vient ce blason ?",
-    image: "/images/oldBlason.jpg",
+    image: oldBlason,
   },
   {
     href: "/article/9ogyhu6la4nnbtj",
     title: "L'origine du nom d'Hébrail",
-    image: "/images/hill.jpeg",
+    image: hill,
   },
   {
     href: "/article/9ogyhu6la4nnbtj",
     title: "Les lieux de la famille",
-    image: "/images/treasure.jpeg",
+    image: treasure,
   },
   {
     href: "/article/9ogyhu6la4nnbtj",
     title: "Les meilleures anecdotes",
-    image: "/images/random.jpeg",
+    image: random,
   },
 ];
 ---
@@ -69,8 +75,8 @@ const hotLinks = [
         <div id="auto_suggestions" class="flex flex-col items-stretch"></div>
       </div>
     </div>
-    <img
-      src="/images/bigBlasonSimple.png"
+    <Image
+      src={bigBlasonSimple}
       alt="Blason d'Hébrail"
       class="h-[98vh] absolute right-0 top-1 translate-x-1/4 md:block hidden z-10"
     />
@@ -110,7 +116,7 @@ const hotLinks = [
             h-
             class="flex flex-col items-center gap-4 w-56 shadow focus:shadow-xl hover:shadow-xl rounded-3xl overflow-clip hover:scale-105 focus:scale-105 transition bg-white"
           >
-            <img src={hl.image} alt={hl.title} class="w-full h-56" />
+            <Image src={hl.image} alt={hl.title} class="w-full h-56" />
             <div class="text-center px-2 pt-4 pb-6">{hl.title}</div>
           </a>
         ))

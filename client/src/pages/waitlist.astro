@@ -1,5 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import wait from "@images/wait.png";
 export const prerender = true;
 ---
 
@@ -11,6 +13,6 @@ export const prerender = true;
     <p class="text-xl text-center">
       Veuillez attendre que Pierre valide votre compte
     </p>
-    <img src="/images/wait.png" alt="Attente" class="w-52 mt-8" />
+    <Image src={wait} alt="Attente" class="w-52 mt-8" />
   </div>
 </Layout>

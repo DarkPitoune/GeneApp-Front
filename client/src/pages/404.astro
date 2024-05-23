@@ -1,5 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import svg404 from "@images/404.svg";
 export const prerender = true;
 ---
 
@@ -11,8 +13,8 @@ export const prerender = true;
       >
         Oups !
       </h1>
-      <img
-        src="/images/404.svg"
+      <Image
+        src={svg404}
         alt="Erreur 404"
         class="h-full absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2"
       />
