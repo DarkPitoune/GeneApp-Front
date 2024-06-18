@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, squooshImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
 import htmx from "astro-htmx";
@@ -8,5 +8,8 @@ import alpinejs from "@astrojs/alpinejs";
 export default defineConfig({
   integrations: [tailwind(), alpinejs(), htmx()],
   output: "server",
+  image: {
+    service: squooshImageService(),
+  },
   adapter: vercel(),
 });
